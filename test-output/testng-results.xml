@@ -1,63 +1,103 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testng-results ignored="0" total="2" passed="2" failed="0" skipped="0">
+<testng-results ignored="0" total="1" passed="0" failed="1" skipped="0">
   <reporter-output>
   </reporter-output>
-  <suite started-at="2025-09-06T12:35:55 IST" name="Default suite" finished-at="2025-09-06T12:36:06 IST" duration-ms="11216">
+  <suite started-at="2025-09-09T14:01:35 IST" name="Default suite" finished-at="2025-09-09T14:02:32 IST" duration-ms="57560">
     <groups>
       <group name="cucumber">
-        <method signature="AbstractTestNGCucumberTests.runScenario(io.cucumber.testng.PickleWrapper,io.cucumber.testng.FeatureWrapper)[pri:0, instance:runner.TestRunner@2002fc1d]" name="runScenario" class="io.cucumber.testng.AbstractTestNGCucumberTests"/>
+        <method signature="AbstractTestNGCucumberTests.runScenario(io.cucumber.testng.PickleWrapper,io.cucumber.testng.FeatureWrapper)[pri:0, instance:com.runner.TestRunner@2002fc1d]" name="runScenario" class="io.cucumber.testng.AbstractTestNGCucumberTests"/>
       </group> <!-- cucumber -->
     </groups>
-    <test started-at="2025-09-06T12:35:55 IST" name="Default test" finished-at="2025-09-06T12:36:06 IST" duration-ms="11216">
-      <class name="runner.TestRunner">
-        <test-method is-config="true" signature="setUpClass(org.testng.ITestContext)[pri:0, instance:runner.TestRunner@2002fc1d]" started-at="2025-09-06T12:35:55 IST" name="setUpClass" finished-at="2025-09-06T12:35:56 IST" duration-ms="871" status="PASS">
+    <test started-at="2025-09-09T14:01:35 IST" name="Default test" finished-at="2025-09-09T14:02:32 IST" duration-ms="57560">
+      <class name="com.runner.TestRunner">
+        <test-method is-config="true" signature="setUpClass(org.testng.ITestContext)[pri:0, instance:com.runner.TestRunner@2002fc1d]" started-at="2025-09-09T14:01:35 IST" name="setUpClass" finished-at="2025-09-09T14:01:36 IST" duration-ms="1185" status="PASS">
           <params>
             <param index="0">
               <value>
-                <![CDATA[org.testng.TestRunner@1a891add]]>
+                <![CDATA[org.testng.TestRunner@1c3259fa]]>
               </value>
             </param>
           </params>
           <reporter-output>
           </reporter-output>
         </test-method> <!-- setUpClass -->
-        <test-method signature="runScenario(io.cucumber.testng.PickleWrapper,io.cucumber.testng.FeatureWrapper)[pri:0, instance:runner.TestRunner@2002fc1d]" started-at="2025-09-06T12:35:56 IST" name="runScenario" description="Runs Cucumber Scenarios" data-provider="scenarios" finished-at="2025-09-06T12:36:02 IST" duration-ms="5939" status="PASS">
+        <test-method signature="runScenario(io.cucumber.testng.PickleWrapper,io.cucumber.testng.FeatureWrapper)[pri:0, instance:com.runner.TestRunner@2002fc1d]" started-at="2025-09-09T14:01:36 IST" name="runScenario" description="Runs Cucumber Scenarios" data-provider="scenarios" finished-at="2025-09-09T14:02:32 IST" duration-ms="55679" status="FAIL">
           <params>
             <param index="0">
               <value>
-                <![CDATA["Successful login with valid mobile number"]]>
+                <![CDATA["Search round-trip flights and see results"]]>
               </value>
             </param>
             <param index="1">
               <value>
-                <![CDATA["Ixigo Login with Mobile Number"]]>
+                <![CDATA["Search Round Trip Flights"]]>
               </value>
             </param>
           </params>
+          <exception class="io.cucumber.testng.UndefinedStepException">
+            <message>
+              <![CDATA[The step 'the user selects "Round Trip" trip type' and 3 other step(s) are undefined.
+You can implement these steps using the snippet(s) below:
+
+@When("the user selects {string} trip type")
+public void the_user_selects_trip_type(String string) {
+    // Write code here that turns the phrase above into concrete actions
+    throw new io.cucumber.java.PendingException();
+}
+@When("the user selects departure date as {string}")
+public void the_user_selects_departure_date_as(String string) {
+    // Write code here that turns the phrase above into concrete actions
+    throw new io.cucumber.java.PendingException();
+}
+@When("the user selects return date as {string}")
+public void the_user_selects_return_date_as(String string) {
+    // Write code here that turns the phrase above into concrete actions
+    throw new io.cucumber.java.PendingException();
+}
+@When("the user sets travellers as {string} adults, {string} children, {string} infants and class as {string}")
+public void the_user_sets_travellers_as_adults_children_infants_and_class_as(String string, String string2, String string3, String string4) {
+    // Write code here that turns the phrase above into concrete actions
+    throw new io.cucumber.java.PendingException();
+}
+]]>
+            </message>
+            <full-stacktrace>
+              <![CDATA[io.cucumber.testng.UndefinedStepException: The step 'the user selects "Round Trip" trip type' and 3 other step(s) are undefined.
+You can implement these steps using the snippet(s) below:
+
+@When("the user selects {string} trip type")
+public void the_user_selects_trip_type(String string) {
+    // Write code here that turns the phrase above into concrete actions
+    throw new io.cucumber.java.PendingException();
+}
+@When("the user selects departure date as {string}")
+public void the_user_selects_departure_date_as(String string) {
+    // Write code here that turns the phrase above into concrete actions
+    throw new io.cucumber.java.PendingException();
+}
+@When("the user selects return date as {string}")
+public void the_user_selects_return_date_as(String string) {
+    // Write code here that turns the phrase above into concrete actions
+    throw new io.cucumber.java.PendingException();
+}
+@When("the user sets travellers as {string} adults, {string} children, {string} infants and class as {string}")
+public void the_user_sets_travellers_as_adults_children_infants_and_class_as(String string, String string2, String string3, String string4) {
+    // Write code here that turns the phrase above into concrete actions
+    throw new io.cucumber.java.PendingException();
+}
+
+at ✽.the user selects "Round Trip" trip type(file:///C:/Users/Dell/OneDrive/Documents/capgemini%20training/Ixigo_Project/src/test/resources/features/search_flight.feature:6)
+]]>
+            </full-stacktrace>
+          </exception> <!-- io.cucumber.testng.UndefinedStepException -->
           <reporter-output>
           </reporter-output>
         </test-method> <!-- runScenario -->
-        <test-method signature="runScenario(io.cucumber.testng.PickleWrapper,io.cucumber.testng.FeatureWrapper)[pri:0, instance:runner.TestRunner@2002fc1d]" started-at="2025-09-06T12:36:02 IST" name="runScenario" description="Runs Cucumber Scenarios" data-provider="scenarios" finished-at="2025-09-06T12:36:06 IST" duration-ms="4180" status="PASS">
-          <params>
-            <param index="0">
-              <value>
-                <![CDATA["Unsuccessful login with invalid mobile number"]]>
-              </value>
-            </param>
-            <param index="1">
-              <value>
-                <![CDATA["Ixigo Login with Mobile Number"]]>
-              </value>
-            </param>
-          </params>
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- runScenario -->
-        <test-method is-config="true" signature="tearDownClass()[pri:0, instance:runner.TestRunner@2002fc1d]" started-at="2025-09-06T12:36:06 IST" name="tearDownClass" finished-at="2025-09-06T12:36:06 IST" duration-ms="142" status="PASS">
+        <test-method is-config="true" signature="tearDownClass()[pri:0, instance:com.runner.TestRunner@2002fc1d]" started-at="2025-09-09T14:02:32 IST" name="tearDownClass" finished-at="2025-09-09T14:02:32 IST" duration-ms="628" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- tearDownClass -->
-      </class> <!-- runner.TestRunner -->
+      </class> <!-- com.runner.TestRunner -->
     </test> <!-- Default test -->
   </suite> <!-- Default suite -->
 </testng-results>

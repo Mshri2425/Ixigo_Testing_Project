@@ -55,11 +55,11 @@ function toggleAllBoxes() {
 <body>
 <h2 align='center'>Default test</h2><table border='1' align="center">
 <tr>
-<td>Tests passed/Failed/Skipped:</td><td>2/0/0</td>
+<td>Tests passed/Failed/Skipped:</td><td>0/1/0</td>
 </tr><tr>
-<td>Started on:</td><td>Sat Sep 06 12:35:55 IST 2025</td>
+<td>Started on:</td><td>Tue Sep 09 14:01:35 IST 2025</td>
 </tr>
-<tr><td>Total time:</td><td>11 seconds (11216 ms)</td>
+<tr><td>Total time:</td><td>57 seconds (57560 ms)</td>
 </tr><tr>
 <td>Included groups:</td><td></td>
 </tr><tr>
@@ -67,8 +67,8 @@ function toggleAllBoxes() {
 </tr>
 </table><p/>
 <small><i>(Hover the method name to see the test class name)</i></small><p/>
-<table width='100%' border='1' class='invocation-passed'>
-<tr><td colspan='4' align='center'><b>PASSED TESTS</b></td></tr>
+<table width='100%' border='1' class='invocation-failed'>
+<tr><td colspan='4' align='center'><b>FAILED TESTS</b></td></tr>
 <tr><td><b>Test method</b></td>
 <td><b>Attribute(s)</b></td>
 <td width="30%"><b>Exception</b></td>
@@ -76,15 +76,61 @@ function toggleAllBoxes() {
 <td><b>Instance</b></td>
 </tr>
 <tr>
-<td title='runner.TestRunner.runScenario()'><b>runScenario</b><br>Test class: runner.TestRunner<br>Test method: Runs Cucumber Scenarios<br>Parameters: "Unsuccessful login with invalid mobile number", "Ixigo Login with Mobile Number"</td>
-<td></td>
-<td>4</td>
-<td>runner.TestRunner@2002fc1d</td></tr>
-<tr>
-<td title='runner.TestRunner.runScenario()'><b>runScenario</b><br>Test class: runner.TestRunner<br>Test method: Runs Cucumber Scenarios<br>Parameters: "Successful login with valid mobile number", "Ixigo Login with Mobile Number"</td>
-<td></td>
-<td>5</td>
-<td>runner.TestRunner@2002fc1d</td></tr>
+<td title='com.runner.TestRunner.runScenario()'><b>runScenario</b><br>Test class: com.runner.TestRunner<br>Test method: Runs Cucumber Scenarios<br>Parameters: "Search round-trip flights and see results", "Search Round Trip Flights"</td>
+<td><div><pre>io.cucumber.testng.UndefinedStepException: The step &apos;the user selects &quot;Round Trip&quot; trip type&apos; and 3 other step(s) are undefined.
+You can implement these steps using the snippet(s) below:
+
+@When(&quot;the user selects {string} trip type&quot;)
+public void the_user_selects_trip_type(String string) {
+    // Write code here that turns the phrase above into concrete actions
+    throw new io.cucumber.java.PendingException();
+}
+@When(&quot;the user selects departure date as {string}&quot;)
+public void the_user_selects_departure_date_as(String string) {
+    // Write code here that turns the phrase above into concrete actions
+    throw new io.cucumber.java.PendingException();
+}
+@When(&quot;the user selects return date as {string}&quot;)
+public void the_user_selects_return_date_as(String string) {
+    // Write code here that turns the phrase above into concrete actions
+    throw new io.cucumber.java.PendingException();
+}
+@When(&quot;the user sets travellers as {string} adults, {string} children, {string} infants and class as {string}&quot;)
+public void the_user_sets_travellers_as_adults_children_infants_and_class_as(String string, String string2, String string3, String string4) {
+    // Write code here that turns the phrase above into concrete actions
+    throw new io.cucumber.java.PendingException();
+}
+
+	at ✽.the user selects &quot;Round Trip&quot; trip type(file:///C:/Users/Dell/OneDrive/Documents/capgemini%20training/Ixigo_Project/src/test/resources/features/search_flight.feature:6)
+</pre></div><a href='#' onClick='toggleBox("stack-trace859604881", this, "Click to show all stack frames", "Click to hide stack frames")'>Click to show all stack frames</a>
+<div class='stack-trace' id='stack-trace859604881'><pre>io.cucumber.testng.UndefinedStepException: The step &apos;the user selects &quot;Round Trip&quot; trip type&apos; and 3 other step(s) are undefined.
+You can implement these steps using the snippet(s) below:
+
+@When(&quot;the user selects {string} trip type&quot;)
+public void the_user_selects_trip_type(String string) {
+    // Write code here that turns the phrase above into concrete actions
+    throw new io.cucumber.java.PendingException();
+}
+@When(&quot;the user selects departure date as {string}&quot;)
+public void the_user_selects_departure_date_as(String string) {
+    // Write code here that turns the phrase above into concrete actions
+    throw new io.cucumber.java.PendingException();
+}
+@When(&quot;the user selects return date as {string}&quot;)
+public void the_user_selects_return_date_as(String string) {
+    // Write code here that turns the phrase above into concrete actions
+    throw new io.cucumber.java.PendingException();
+}
+@When(&quot;the user sets travellers as {string} adults, {string} children, {string} infants and class as {string}&quot;)
+public void the_user_sets_travellers_as_adults_children_infants_and_class_as(String string, String string2, String string3, String string4) {
+    // Write code here that turns the phrase above into concrete actions
+    throw new io.cucumber.java.PendingException();
+}
+
+	at ✽.the user selects &quot;Round Trip&quot; trip type(file:///C:/Users/Dell/OneDrive/Documents/capgemini%20training/Ixigo_Project/src/test/resources/features/search_flight.feature:6)
+</pre></div></td>
+<td>55</td>
+<td>com.runner.TestRunner@2002fc1d</td></tr>
 </table><p>
 </body>
 </html>
