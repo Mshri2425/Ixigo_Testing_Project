@@ -11,13 +11,6 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.*;
 
-/**
- * Safer Reporter utility:
- * - Produces filesystem-safe screenshot names
- * - Creates directories if missing
- * - Uses java.nio Files.copy for robustness
- * - Does NOT throw IOException back to test steps; it logs warnings instead
- */
 public class Reporter {
 
     // root reports folder (adjust if you have a reports path elsewhere)

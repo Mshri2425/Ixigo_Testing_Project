@@ -49,4 +49,39 @@ public class Locators {
         );
         return By.xpath(xpath);
     }
+
+    // ------------------- Airport Cabs Locators -------------------
+
+    // Airport Cabs button on search page
+    public static By airportCabs = By.xpath("//a[@data-testid='submenu-item' and .//p[normalize-space()='Airport Cabs']]");
+
+    // FIXED: Radio button - Home To Airport (handles both typo and correct spelling)
+    public static By homeToAirport = By.xpath("//label[contains(.,'Home To Airport') or contains(.,'Home To Aiport')]");
+
+    // From input
+    public static By fromLocationInput = By.xpath("//input[@id='from-input' and @placeholder='Pick Up Location']");
+
+    // Autocomplete option (example: Chennai International Airport - MAA)
+    public static By fromSuggestionMAA = By.xpath("//ul[contains(@class,'auto-from')]//li[contains(.,'Chennai International Airport (MAA)')]");
+
+    // To input
+    public static By toLocationInput = By.xpath("//input[@id='to-input' and contains(@placeholder,'Search Nearest Airport')]");
+
+    // Autocomplete option (example: Mumbai - CSMI Airport-T1)
+    public static By toSuggestionBOM_T1 = By.xpath("//ul[@id='to-options']//li[contains(normalize-space(.),'Mumbai - CSMI Airport-T1')]");
+
+    // Pickup Date container
+    public static By pickupDateDisplay = By.xpath("//*[@id='display-date']");
+
+    // Pickup Date hidden input (if available)
+    public static By pickupDateHiddenInput = By.xpath("//input[@id='hidden-date-input']");
+
+    // Pickup Time display
+    public static By pickupTimeDisplay = By.xpath("//*[@id='displayed-time']");
+
+    // Pickup Time hidden input
+    public static By pickupTimeInput = By.xpath("//input[@id='pickup-time' and @type='time']");
+
+    // Search button
+    public static By searchCabsButton = By.xpath("//button[@id='submit-btn' and normalize-space()='SEARCH']");
 }
