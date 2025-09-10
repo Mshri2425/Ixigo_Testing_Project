@@ -2,72 +2,112 @@ package com.objectrepository;
 
 import org.openqa.selenium.By;
 
+/**
+ * Centralized locators for Ixigo project.
+ * - Preserves your original login locators exactly.
+ * - Adjusted the new search-related locators to reuse existing, stable locators from the file.
+ */
 public class Locators {
-
-    // ---------- Login ----------
-	public static By Loginbutton=By.xpath("//button[text()='Log in/Sign up']");
-    public static By mobile=By.xpath("//input[@placeholder='Enter Mobile Number']");
-    public static By continuebutton=By.xpath("//button[text()='Continue']");
-    public static By otpInputs=By.xpath("//input[@type='tel' or @inputmode='numeric']");
+    // ---------- original login locators (kept as you gave) ----------
+    public static By loginbutton = By.xpath("//button[text()='Log in/Sign up']");
+    public static By mobile = By.xpath("//input[@placeholder='Enter Mobile Number']");
+    public static By continuebutton = By.xpath("//button[text()='Continue']");
+    public static By otpInputs = By.xpath("//input[@type='tel' or @inputmode='numeric']");
     public static By verify = By.xpath("//*[text()='Verify' or normalize-space()='Verify']");
-    
-    // ---------- Flight Search (trip type) ----------
-    public static By flight = By.xpath("//p[normalize-space()='Flights' or contains(.,'Flights')]");
-    public static By oneWay = By.xpath("//button[normalize-space()='One Way']");
-    public static By round = By.xpath("//button[normalize-space()='Round Trip']");
 
-    // ---------- From / To (top-level visible fields) ----------
-    // used to open the From/To picker (clickable visible element)
-    public static By from = By.xpath("//p[@data-testid='originId' or contains(.,'From') or //div[contains(@class,'origin')]]");
-    public static By to   = By.xpath("//p[@data-testid='destinationId' or contains(.,'To') or //div[contains(@class,'destination')]]");
+    // ---------- original flight locators you provided ----------
+    public static By flight = By.xpath("//a[@href='/flights']");
+    public static By round = By.xpath("//button[text()='Round Trip']");	
+    public static By from = By.xpath("/html/body/main/div[2]/div[1]/div[3]/div[2]/div[1]/div[1]/div[1]/div");
+    public static By click_from = By.xpath("/html/body/main/div[2]/div[1]/div[3]/div[2]/div[1]/div[1]/div[2]/div/div/div[2]/input");
+    public static By to = By.xpath("/html/body/main/div[2]/div[1]/div[3]/div[2]/div[1]/div[2]/div[1]/div");
+    public static By click_to = By.xpath("/html/body/main/div[2]/div[1]/div[3]/div[2]/div[1]/div[2]/div[2]/div/div/div[2]/input");
+    public static By departure_btn = By.xpath("/html/body/main/div[2]/div[1]/div[3]/div[2]/div[2]/div[1]/div/div/div/div/p[2]");
+    public static By dep_month = By.xpath("/html/body/main/div[2]/div[1]/div[3]/div[2]/div[2]/div[3]/div/div[1]/div[1]/button[2]/span[1]");
+    public static By dep_year = By.xpath("//span[text()='2025']");
 
-    // ---------- From / To popup input fields (where you type text) ----------
-    // Prefer label-sibling pattern for stability
-    public static By click_from = By.xpath("//label[normalize-space()='From']/following-sibling::input | //div[.//label[normalize-space()='From']]//input");
-    public static By click_to   = By.xpath("//label[normalize-space()='To']/following-sibling::input   | //div[.//label[normalize-space()='To']]//input");
+    // --- Changed the NEW locators to reuse existing stable locators on the page ---
+    // Use the existing 'from' and input 'click_from' as the clickable wrapper / input
+    public static By frmbtn = from;          // alias to existing 'from' locator
+    public static By fromPlace = click_from; // alias to existing 'click_from' locator
 
-    // ---------- Autosuggest / suggestions ----------
-    public static By citySuggestionItems = By.xpath("//div[@role='listitem' or @role='option' or contains(@class,'list-item') or contains(@class,'suggest')]");
-    public static By cityFirstSuggestion = By.xpath("(//div[@role='listitem' or @role='option' or contains(@class,'list-item') or contains(@class,'suggest')])[1]");
+    // Use the existing 'to' and input 'click_to' as the clickable wrapper / input
+    public static By tobtn = to;             // alias to existing 'to' locator
+    public static By toPlace = click_to;     // alias to existing 'click_to' locator
 
-    // Generic autosuggest containers (fallback)
-    public static By autosuggestList = By.xpath("//ul[@role='listbox' or contains(@class,'autosuggest') or contains(@class,'suggest')]");
-    public static By autosuggestItem = By.xpath("//ul[@role='listbox']//li | //div[@role='listitem']");
+    // ---------- added locators for search flow (adjusted to reuse existing ones) ----------
+    public static By searchButton = By.xpath("//button[normalize-space()='Search' or contains(@class,'search')]");
+    public static By calendarNextBtn = By.xpath("//button[contains(@aria-label,'Next') or contains(@class,'next')]");
+    // reuse existing dep_month as primary calendar header locator
+    public static By calendarMonthYear = dep_month;
+    public static By travellersPanel = By.xpath("//div[contains(text(),'Travellers') or contains(@class,'traveller') or contains(@class,'passenger')]");
+    public static By adultsPlusBtn = By.xpath("(//button[contains(.,'+')])[1]");
+    public static By childrenPlusBtn = By.xpath("(//button[contains(.,'+')])[2]");
+    public static By infantsPlusBtn = By.xpath("(//button[contains(.,'+')])[3]");
+    public static By travellersApplyBtn = By.xpath("//button[normalize-space()='Apply' or normalize-space()='Done']");
 
-    // ---------- Dates & calendar ----------
-    public static By deptbtn = By.xpath("//p[normalize-space()='Departure'] | //div[.//p[normalize-space()='Departure']]");
-    public static By departureLabel = By.xpath("//p[normalize-space()='Departure']");
-    public static By returnLabel = By.xpath("//p[normalize-space()='Return']");
+    public static By travelClassDropdown = By.xpath("//div[contains(@class,'cabin') or contains(.,'Class') or contains(@data-testid,'cabin')]");
+    // results container generic (keeps your original combined expression)
+    public static By resultsContainer = By.xpath("//div[contains(@class,'listing') or contains(@class,'results') or contains(@id,'results') or //h1[contains(.,'Flights')]]");
 
-    // The element that shows current month + year in the calendar widget.
-    public static By monthYear = By.xpath(
-        "//div[contains(@class,'Month') or contains(@class,'month') or contains(@class,'Calendar') or contains(@class,'calendar')]//p[normalize-space() and (contains(.,'20') or contains(.,'Jan') or contains(.,'Feb') or contains(.,'Mar') or contains(.,'Apr') or contains(.,'May') or contains(.,'Jun') or contains(.,'Jul') or contains(.,'Aug') or contains(.,'Sep') or contains(.,'Oct') or contains(.,'Nov') or contains(.,'Dec'))]"
-    );
-    public static By nextBtn = By.xpath("//button[@aria-label='Next' or contains(@class,'next') or contains(.,'Next') or contains(@data-testid,'next')]");
-    public static By prevBtn = By.xpath("//button[@aria-label='Previous' or contains(@class,'prev') or contains(.,'Prev') or contains(@data-testid,'prev')]");
-
-    // ---------- Travellers & Class ----------
-    public static By travellersLabel = By.xpath("//p[normalize-space()='Travellers & Class' or contains(.,'Travellers')]");
-    public static By adultsLabel = By.xpath("//p[normalize-space()='Adults']");
-    public static By childrenLabel = By.xpath("//p[normalize-space()='Children']");
-    public static By infantsLabel = By.xpath("//p[normalize-space()='Infants']");
-
-    public static By adultsIncrease = By.xpath("//div[.//p[normalize-space()='Adults']]//button[contains(.,'+') or contains(@aria-label,'increase') or contains(@class,'inc')]");
-    public static By childrenIncrease = By.xpath("//div[.//p[normalize-space()='Children']]//button[contains(.,'+') or contains(@aria-label,'increase') or contains(@class,'inc')]");
-    public static By infantsIncrease = By.xpath("//div[.//p[normalize-space()='Infants']]//button[contains(.,'+') or contains(@aria-label,'increase') or contains(@class,'inc')]");
-
-    public static By classEconomy = By.xpath("//span[normalize-space()='Economy']");
-    public static By classPremiumEconomy = By.xpath("//span[normalize-space()='Premium Economy' or contains(.,'Premium')]");
-    public static By classBusiness = By.xpath("//span[normalize-space()='Business']");
-
-    public static By doneTravellersBtn = By.xpath("//button[normalize-space()='Done' or normalize-space()='Apply' or contains(.,'Done') or contains(.,'Apply')]");
-
-    // ---------- Search ----------
-    public static By searchButton = By.xpath("//button[normalize-space()='Search' or contains(@class,'Search')]");
-    public static By resultsContainer = By.xpath("//*[contains(@class,'searchResults') or contains(@class,'flightResults') or contains(.,'Select') or contains(.,'Results')]");
-
-    // ---------- Misc / fallback helpers ----------
-    public static By byExactText(String text) {
-        return By.xpath("//*[normalize-space()='" + text + "']");
+    // helper dynamic locators
+    public static By dayCell(String day) {
+        // looks for day cells represented by <p>, <div> or <span> with exact visible text equal to day.
+        String xpath1 = "//p[normalize-space()='" + day + "']";
+        String xpath2 = "//div[normalize-space()='" + day + "']";
+        String xpath3 = "//span[normalize-space()='" + day + "']";
+        return By.xpath(xpath1 + " | " + xpath2 + " | " + xpath3);
     }
+
+    public static By travelClassOption(String cls) {
+        String xpath1 = "//li[normalize-space()='" + cls + "']";
+        String xpath2 = "//div[contains(@class,'option') and normalize-space()='" + cls + "']";
+        String xpath3 = "//button[normalize-space()='" + cls + "']";
+        return By.xpath(xpath1 + " | " + xpath2 + " | " + xpath3);
+    }
+
+    // Flight card container (used to find all result cards)
+    public static By flightCard = By.cssSelector(".flight-card");
+
+    // Elements inside a flight card
+    public static By airlineNameInCard = By.cssSelector(".airline-name");
+    public static By stopsInCard = By.cssSelector(".stops");
+    public static By departureTimeInCard = By.cssSelector(".departure-time");
+    public static By arrivalTimeInCard = By.cssSelector(".arrival-time");
+    public static By priceInCard = By.cssSelector(".price");
+
+    // Non-Stop filter: prefer label-based click, fallback to checkbox value '0'
+    public static By nonStopFilter = By.xpath(
+        "//label[contains(., 'Non-Stop')]/input | //input[@type='checkbox' and @value='0']"
+    );
+    
+    public static By return_btn = By.xpath(
+    	    "//div[normalize-space()='Return' or contains(@aria-label,'Return') or contains(@class,'return')]" 
+    	    + " | //p[normalize-space()='Return']"
+    	);
+
+    // IndiGo airline filter: prefer label text, fallback to checkbox value '6E'
+    public static By indigoFilter = By.xpath(
+        "//label[contains(., 'IndiGo')]/input | //input[@type='checkbox' and @value='6E']"
+    );
+
+    // Departure-time filter for MAA -> "Before 6AM"
+    public static By maaBefore6amFilter = By.xpath(
+        "//input[@type='checkbox' and @name='takeOff' and @value='EARLY_MORNING'] | " +
+        "//*[contains(., 'MAA')]/following::label[contains(., 'Before 6AM')][1]/input | " +
+        "//label[contains(., 'Before 6AM') and contains(., 'MAA')]/input"
+    );
+
+    // Arrival-time filter for PNQ -> "Before 6AM"
+    public static By pnqBefore6amFilter = By.xpath(
+        "//input[@type='checkbox' and @name='landing' and @value='EARLY_MORNING'] | " +
+        "//*[contains(., 'PNQ')]/following::label[contains(., 'Before 6AM')][1]/input | " +
+        "//label[contains(., 'Before 6AM') and contains(., 'PNQ')]/input"
+    );
+
+    // First flight selection button: prefer visible "Book" button, fallback to a button inside the first flight card
+    public static By firstFlightSelectButton = By.xpath(
+        "(//button[normalize-space()='Book' or contains(normalize-space(.), 'Book')])[1] | " +
+        "(//div[contains(@class,'flight-card') or contains(@class,'listing-card')])[1]//button[normalize-space()='Book' or contains(normalize-space(.), 'Book')]"
+    );
 }

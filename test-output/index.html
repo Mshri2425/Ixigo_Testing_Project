@@ -50,7 +50,7 @@
               <ul>
                 <li>
                   <a href="#" panel-name="test-xml-Default_suite" class="navigator-link ">
-                    <span>C:\Users\Dell\AppData\Local\Temp\testng-eclipse-1176640167\testng-customsuite.xml</span>
+                    <span>C:\Users\Dell\AppData\Local\Temp\testng-eclipse--2092976907\testng-customsuite.xml</span>
                   </a> <!-- navigator-link  -->
                 </li>
                 <li>
@@ -130,31 +130,12 @@
                   </a> <!-- runScenario("Search round-trip flights and see results", "Search Round Trip Flights") -->
                   <span class="method-name">runScenario</span>
                   <span class="parameters">("Search round-trip flights and see results","Search Round Trip Flights")</span>
-                  <div class="stack-trace">io.cucumber.testng.UndefinedStepException: The step &apos;the user selects &quot;Round Trip&quot; trip type&apos; and 3 other step(s) are undefined.
-You can implement these steps using the snippet(s) below:
-
-@When(&quot;the user selects {string} trip type&quot;)
-public void the_user_selects_trip_type(String string) {
-    // Write code here that turns the phrase above into concrete actions
-    throw new io.cucumber.java.PendingException();
-}
-@When(&quot;the user selects departure date as {string}&quot;)
-public void the_user_selects_departure_date_as(String string) {
-    // Write code here that turns the phrase above into concrete actions
-    throw new io.cucumber.java.PendingException();
-}
-@When(&quot;the user selects return date as {string}&quot;)
-public void the_user_selects_return_date_as(String string) {
-    // Write code here that turns the phrase above into concrete actions
-    throw new io.cucumber.java.PendingException();
-}
-@When(&quot;the user sets travellers as {string} adults, {string} children, {string} infants and class as {string}&quot;)
-public void the_user_sets_travellers_as_adults_children_infants_and_class_as(String string, String string2, String string3, String string4) {
-    // Write code here that turns the phrase above into concrete actions
-    throw new io.cucumber.java.PendingException();
-}
-
-	at ✽.the user selects &quot;Round Trip&quot; trip type(file:///C:/Users/Dell/OneDrive/Documents/capgemini%20training/Ixigo_Project/src/test/resources/features/search_flight.feature:6)
+                  <div class="stack-trace">java.lang.AssertionError: Expected search results to be displayed expected [true] but found [false]
+	at org.testng.Assert.fail(Assert.java:111)
+	at org.testng.Assert.failNotEquals(Assert.java:1590)
+	at org.testng.Assert.assertTrue(Assert.java:57)
+	at com.stepdefinitions.searchingdefinitions.search_results_should_be_displayed(searchingdefinitions.java:75)
+	at ✽.search results should be displayed(file:///C:/Users/Dell/OneDrive/Documents/capgemini%20training/Ixigo_Project/src/test/resources/Features/search_flight.feature:13)
 
 </div> <!-- stack-trace -->
                   <em>
@@ -166,7 +147,7 @@ public void the_user_sets_travellers_as_adults_children_infants_and_class_as(Str
         </div> <!-- panel Default_suite -->
         <div panel-name="test-xml-Default_suite" class="panel">
           <div class="main-panel-header rounded-window-top">
-            <span class="header-content">C:\Users\Dell\AppData\Local\Temp\testng-eclipse-1176640167\testng-customsuite.xml</span>
+            <span class="header-content">C:\Users\Dell\AppData\Local\Temp\testng-eclipse--2092976907\testng-customsuite.xml</span>
           </div> <!-- main-panel-header rounded-window-top -->
           <div class="main-panel-content rounded-window-bottom">
             <pre>
@@ -227,12 +208,12 @@ data.addRows(1);
 data.setCell(0, 0, 0)
 data.setCell(0, 1, 'runScenario')
 data.setCell(0, 2, 'com.runner.TestRunner')
-data.setCell(0, 3, 55679);
+data.setCell(0, 3, 182577);
 window.suiteTableData['Default_suite']= { tableData: data, tableDiv: 'times-div-Default_suite'}
 return data;
 }
               </script>
-              <span class="suite-total-time">Total running time: 55 seconds</span>
+              <span class="suite-total-time">Total running time: 3 minutes</span>
               <div id="times-div-Default_suite">
               </div> <!-- times-div-Default_suite -->
             </div> <!-- times-div -->
@@ -260,18 +241,18 @@ return data;
             <div class="chronological-class">
               <div class="chronological-class-name">com.runner.TestRunner</div> <!-- chronological-class-name -->
               <div class="configuration-class before">
-                <span class="method-name">setUpClass(org.testng.TestRunner@1c3259fa)</span>
+                <span class="method-name">setUpClass(org.testng.TestRunner@4f3fec43)</span>
                 <span class="method-start">0 ms</span>
               </div> <!-- configuration-class before -->
               <div class="test-method">
                 <img src="failed.png">
                 </img>
                 <span class="method-name">runScenario("Search round-trip flights and see results", "Search Round Trip Flights")</span>
-                <span class="method-start">1208 ms</span>
+                <span class="method-start">1472 ms</span>
               </div> <!-- test-method -->
               <div class="configuration-class after">
                 <span class="method-name">tearDownClass</span>
-                <span class="method-start">56897 ms</span>
+                <span class="method-start">184055 ms</span>
               </div> <!-- configuration-class after -->
           </div> <!-- main-panel-content rounded-window-bottom -->
         </div> <!-- panel -->

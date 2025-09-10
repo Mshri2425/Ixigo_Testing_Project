@@ -11,9 +11,11 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 
 import com.parameters.PropertyReader;
 
+
+
 public class Base {
 
-	static final int time = 2000;
+	static final int time = 5000;
 	public static WebDriver driver;
 
 	public void launchBrowser() {

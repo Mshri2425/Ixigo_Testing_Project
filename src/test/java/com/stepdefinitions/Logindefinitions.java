@@ -1,66 +1,68 @@
 package com.stepdefinitions;
 
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 
+import com.aventstack.extentreports.ExtentTest;
 import com.pages.Loginpage;
 import com.setup.Base;
-import com.utils.CookieManager;
 
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
-
-import java.time.Duration;
+import io.cucumber.java.en.When;
 
 public class Logindefinitions {
 
     WebDriver driver = Hooks.driver;
-    Loginpage loginPage;
+    ExtentTest extTest = Hooks.extTest;
+    Loginpage loginPage;   // declare
 
-    @Given("the user is on the ixigo homepage with mobile {string}")
-    public void the_user_is_on_the_ixigo_homepage_with_mobile(String mobileNumber) {
-        loginPage = new Loginpage(driver, null);
+    @Given("the user is on the login page")
+    public void the_user_is_on_the_login_page() {
+        // ✅ initialize here for both positive & negative flows
+        loginPage = new Loginpage(driver, extTest);
+        loginPage.loadCookiesFromFile("Cookies.data");
+        String expRes = "https://www.ixigo.com/";
+        String actRes = driver.getCurrentUrl();
+        Assert.assertEquals(actRes, expRes, "User is not on Ixigo login page!");
+        System.out.println("✅ The website has been launched successfully");
+    }
 
-        // 1️⃣ Visit site first
-        driver.get("https://www.ixigo.com/");
+    // --------- Negative flow ---------
+    @When("the user enters invalid mobileno as {string}")
+    public void the_user_enters_invalid_mobileno_as(String invalidMobile) {
+        loginPage.invalidnumber(invalidMobile);
+    }
 
-        // 2️⃣ Try loading saved cookies
-        boolean cookiesLoaded = CookieManager.load(driver);
+    @When("the user clicks the login button")
+    public void the_user_clicks_the_login_button() {
+        loginPage.clickContinueForMobile();
+    }
 
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+    @Then("the system should display {string}")
+    public void the_system_should_display(String expectedMessage) {
+        loginPage.verifyErrorMessage(expectedMessage);
+    }
 
-        try {
-            // Check if correct user is already logged in
-            WebElement heyUser = wait.until(ExpectedConditions.visibilityOfElementLocated(
-                    By.xpath("//span[contains(text(),'Hey')]")
-            ));
-            System.out.println("✅ User already logged in via cookies: " + heyUser.getText());
+    // --------- Positive flow ---------
+    @When("the user enters mobileno as {string}")
+    public void the_user_enters_mobileno_as(String mobileNo) {
+        boolean actRes = loginPage.enterMobileNumber(mobileNo);
+        Assert.assertTrue(actRes, "Failed to enter mobile number!");
+        loginPage.clickContinueForMobile();
+    }
 
-        } catch (Exception e) {
-            // Cookies not valid / new user, perform OTP login
-            System.out.println("⚠️ User not logged in or mismatch. Performing OTP login.");
-
-            CookieManager.clearBrowserData(driver);
-
-            loginPage.enterMobileNumber(mobileNumber);
-            loginPage.clickContinueForMobile();
-            loginPage.enterOtpManually();
-            Base.sleep();
-
-            // Save cookies for future
-            CookieManager.save(driver);
+    @When("enters the correct OTP")
+    public void enters_the_correct_otp() {
+        loginPage.enterOtpManually();
+        Base.sleep();
+        if (loginPage.navigatedpage()) {
+            loginPage.saveCookiesToFile("Cookies.data");
         }
     }
 
-    @Then("the user should see the home page after login")
-    public void the_user_should_see_home_page_after_login() {
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(15));
-        WebElement heyUser = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//span[contains(text(),'Hey')]")));
-        Assert.assertTrue(heyUser.isDisplayed(), "❌ Login failed!");
-        System.out.println("✅ Home page loaded correctly for " + heyUser.getText());
+    @Then("the user should be navigated to the booking page")
+    public void the_user_should_be_navigated_to_the_booking_page() {
+        Assert.assertTrue(loginPage.navigatedpage(), "User not navigated to booking page");
     }
 }

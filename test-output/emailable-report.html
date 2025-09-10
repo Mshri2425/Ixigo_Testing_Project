@@ -9,35 +9,16 @@
 <table>
 <tr><th>Test</th><th># Passed</th><th># Skipped</th><th># Retried</th><th># Failed</th><th>Time (ms)</th><th>Included Groups</th><th>Excluded Groups</th></tr>
 <tr><th colspan="8">Default suite</th></tr>
-<tr><td><a href="#t0">Default test</a></td><td class="num">0</td><td class="num">0</td><td class="num">0</td><td class="num attn">1</td><td class="num">57,560</td><td></td><td></td></tr>
+<tr><td><a href="#t0">Default test</a></td><td class="num">0</td><td class="num">0</td><td class="num">0</td><td class="num attn">1</td><td class="num">184,918</td><td></td><td></td></tr>
 </table>
-<table id='summary'><thead><tr><th>Class</th><th>Method</th><th>Start</th><th>Time (ms)</th></tr></thead><tbody><tr><th colspan="4">Default suite</th></tr></tbody><tbody id="t0"><tr><th colspan="4">Default test &#8212; failed</th></tr><tr class="failedeven"><td rowspan="1">com.runner.TestRunner</td><td><a href="#m0">runScenario</a></td><td rowspan="1">1757406696418</td><td rowspan="1">55679</td></tr></tbody>
+<table id='summary'><thead><tr><th>Class</th><th>Method</th><th>Start</th><th>Time (ms)</th></tr></thead><tbody><tr><th colspan="4">Default suite</th></tr></tbody><tbody id="t0"><tr><th colspan="4">Default test &#8212; failed</th></tr><tr class="failedeven"><td rowspan="1">com.runner.TestRunner</td><td><a href="#m0">runScenario</a></td><td rowspan="1">1757478283287</td><td rowspan="1">182577</td></tr></tbody>
 </table>
-<h2>Default test</h2><h3 id="m0">com.runner.TestRunner#runScenario</h3><table class="result"><tr class="param"><th>Parameter #1</th><th>Parameter #2</th></tr><tr class="param stripe"><td>&quot;Search round-trip flights and see results&quot;</td><td>&quot;Search Round Trip Flights&quot;</td></tr><tr><th colspan="2">Exception</th></tr><tr><td colspan="2"><div class="stacktrace">io.cucumber.testng.UndefinedStepException: The step &apos;the user selects &quot;Round Trip&quot; trip type&apos; and 3 other step(s) are undefined.
-You can implement these steps using the snippet(s) below:
-
-@When(&quot;the user selects {string} trip type&quot;)
-public void the_user_selects_trip_type(String string) {
-    // Write code here that turns the phrase above into concrete actions
-    throw new io.cucumber.java.PendingException();
-}
-@When(&quot;the user selects departure date as {string}&quot;)
-public void the_user_selects_departure_date_as(String string) {
-    // Write code here that turns the phrase above into concrete actions
-    throw new io.cucumber.java.PendingException();
-}
-@When(&quot;the user selects return date as {string}&quot;)
-public void the_user_selects_return_date_as(String string) {
-    // Write code here that turns the phrase above into concrete actions
-    throw new io.cucumber.java.PendingException();
-}
-@When(&quot;the user sets travellers as {string} adults, {string} children, {string} infants and class as {string}&quot;)
-public void the_user_sets_travellers_as_adults_children_infants_and_class_as(String string, String string2, String string3, String string4) {
-    // Write code here that turns the phrase above into concrete actions
-    throw new io.cucumber.java.PendingException();
-}
-
-	at ✽.the user selects &quot;Round Trip&quot; trip type(file:///C:/Users/Dell/OneDrive/Documents/capgemini%20training/Ixigo_Project/src/test/resources/features/search_flight.feature:6)
+<h2>Default test</h2><h3 id="m0">com.runner.TestRunner#runScenario</h3><table class="result"><tr class="param"><th>Parameter #1</th><th>Parameter #2</th></tr><tr class="param stripe"><td>&quot;Search round-trip flights and see results&quot;</td><td>&quot;Search Round Trip Flights&quot;</td></tr><tr><th colspan="2">Exception</th></tr><tr><td colspan="2"><div class="stacktrace">java.lang.AssertionError: Expected search results to be displayed expected [true] but found [false]
+	at org.testng.Assert.fail(Assert.java:111)
+	at org.testng.Assert.failNotEquals(Assert.java:1590)
+	at org.testng.Assert.assertTrue(Assert.java:57)
+	at com.stepdefinitions.searchingdefinitions.search_results_should_be_displayed(searchingdefinitions.java:75)
+	at ✽.search results should be displayed(file:///C:/Users/Dell/OneDrive/Documents/capgemini%20training/Ixigo_Project/src/test/resources/Features/search_flight.feature:13)
 </div></td></tr></table><p class="totop"><a href="#summary">back to summary</a></p>
 </body>
 </html>

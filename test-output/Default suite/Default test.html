@@ -57,9 +57,9 @@ function toggleAllBoxes() {
 <tr>
 <td>Tests passed/Failed/Skipped:</td><td>0/1/0</td>
 </tr><tr>
-<td>Started on:</td><td>Tue Sep 09 14:01:35 IST 2025</td>
+<td>Started on:</td><td>Wed Sep 10 09:54:41 IST 2025</td>
 </tr>
-<tr><td>Total time:</td><td>57 seconds (57560 ms)</td>
+<tr><td>Total time:</td><td>184 seconds (184918 ms)</td>
 </tr><tr>
 <td>Included groups:</td><td></td>
 </tr><tr>
@@ -77,59 +77,21 @@ function toggleAllBoxes() {
 </tr>
 <tr>
 <td title='com.runner.TestRunner.runScenario()'><b>runScenario</b><br>Test class: com.runner.TestRunner<br>Test method: Runs Cucumber Scenarios<br>Parameters: "Search round-trip flights and see results", "Search Round Trip Flights"</td>
-<td><div><pre>io.cucumber.testng.UndefinedStepException: The step &apos;the user selects &quot;Round Trip&quot; trip type&apos; and 3 other step(s) are undefined.
-You can implement these steps using the snippet(s) below:
-
-@When(&quot;the user selects {string} trip type&quot;)
-public void the_user_selects_trip_type(String string) {
-    // Write code here that turns the phrase above into concrete actions
-    throw new io.cucumber.java.PendingException();
-}
-@When(&quot;the user selects departure date as {string}&quot;)
-public void the_user_selects_departure_date_as(String string) {
-    // Write code here that turns the phrase above into concrete actions
-    throw new io.cucumber.java.PendingException();
-}
-@When(&quot;the user selects return date as {string}&quot;)
-public void the_user_selects_return_date_as(String string) {
-    // Write code here that turns the phrase above into concrete actions
-    throw new io.cucumber.java.PendingException();
-}
-@When(&quot;the user sets travellers as {string} adults, {string} children, {string} infants and class as {string}&quot;)
-public void the_user_sets_travellers_as_adults_children_infants_and_class_as(String string, String string2, String string3, String string4) {
-    // Write code here that turns the phrase above into concrete actions
-    throw new io.cucumber.java.PendingException();
-}
-
-	at ✽.the user selects &quot;Round Trip&quot; trip type(file:///C:/Users/Dell/OneDrive/Documents/capgemini%20training/Ixigo_Project/src/test/resources/features/search_flight.feature:6)
-</pre></div><a href='#' onClick='toggleBox("stack-trace859604881", this, "Click to show all stack frames", "Click to hide stack frames")'>Click to show all stack frames</a>
-<div class='stack-trace' id='stack-trace859604881'><pre>io.cucumber.testng.UndefinedStepException: The step &apos;the user selects &quot;Round Trip&quot; trip type&apos; and 3 other step(s) are undefined.
-You can implement these steps using the snippet(s) below:
-
-@When(&quot;the user selects {string} trip type&quot;)
-public void the_user_selects_trip_type(String string) {
-    // Write code here that turns the phrase above into concrete actions
-    throw new io.cucumber.java.PendingException();
-}
-@When(&quot;the user selects departure date as {string}&quot;)
-public void the_user_selects_departure_date_as(String string) {
-    // Write code here that turns the phrase above into concrete actions
-    throw new io.cucumber.java.PendingException();
-}
-@When(&quot;the user selects return date as {string}&quot;)
-public void the_user_selects_return_date_as(String string) {
-    // Write code here that turns the phrase above into concrete actions
-    throw new io.cucumber.java.PendingException();
-}
-@When(&quot;the user sets travellers as {string} adults, {string} children, {string} infants and class as {string}&quot;)
-public void the_user_sets_travellers_as_adults_children_infants_and_class_as(String string, String string2, String string3, String string4) {
-    // Write code here that turns the phrase above into concrete actions
-    throw new io.cucumber.java.PendingException();
-}
-
-	at ✽.the user selects &quot;Round Trip&quot; trip type(file:///C:/Users/Dell/OneDrive/Documents/capgemini%20training/Ixigo_Project/src/test/resources/features/search_flight.feature:6)
+<td><div><pre>java.lang.AssertionError: Expected search results to be displayed expected [true] but found [false]
+	at org.testng.Assert.fail(Assert.java:111)
+	at org.testng.Assert.failNotEquals(Assert.java:1590)
+	at org.testng.Assert.assertTrue(Assert.java:57)
+	at com.stepdefinitions.searchingdefinitions.search_results_should_be_displayed(searchingdefinitions.java:75)
+	at ✽.search results should be displayed(file:///C:/Users/Dell/OneDrive/Documents/capgemini%20training/Ixigo_Project/src/test/resources/Features/search_flight.feature:13)
+</pre></div><a href='#' onClick='toggleBox("stack-trace3998546", this, "Click to show all stack frames", "Click to hide stack frames")'>Click to show all stack frames</a>
+<div class='stack-trace' id='stack-trace3998546'><pre>java.lang.AssertionError: Expected search results to be displayed expected [true] but found [false]
+	at org.testng.Assert.fail(Assert.java:111)
+	at org.testng.Assert.failNotEquals(Assert.java:1590)
+	at org.testng.Assert.assertTrue(Assert.java:57)
+	at com.stepdefinitions.searchingdefinitions.search_results_should_be_displayed(searchingdefinitions.java:75)
+	at ✽.search results should be displayed(file:///C:/Users/Dell/OneDrive/Documents/capgemini%20training/Ixigo_Project/src/test/resources/Features/search_flight.feature:13)
 </pre></div></td>
-<td>55</td>
+<td>182</td>
 <td>com.runner.TestRunner@2002fc1d</td></tr>
 </table><p>
 </body>

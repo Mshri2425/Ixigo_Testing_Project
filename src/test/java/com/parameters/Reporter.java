@@ -31,16 +31,12 @@ public class Reporter {
         }
     }
 
-    public static String captureScreenshot(WebDriver driver, String fileName) throws IOException {
+    public static String captureScreenshot(WebDriver driver, String screenshotName) throws IOException {
+    	screenshotName = screenshotName.replaceAll("[^a-zA-Z0-9_-]", "_");
+        String path = "reports/screenshots/" + screenshotName + "_" + System.currentTimeMillis() + ".png";
+        File dest = new File(path);
+        dest.getParentFile().mkdirs();
         File src = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
-
-        // Always use a safe folder
-        String destDir = System.getProperty("user.dir") + File.separator + "screenshots";
-        new File(destDir).mkdirs();
-
-        // Replace invalid characters in filename
-        String safeFileName = fileName.replaceAll("[^a-zA-Z0-9-_\\.]", "_") + ".png";
-        File dest = new File(destDir + File.separator + safeFileName);
 
         FileUtils.copyFile(src, dest);
 

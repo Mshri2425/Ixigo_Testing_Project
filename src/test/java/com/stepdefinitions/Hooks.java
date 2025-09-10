@@ -1,10 +1,14 @@
 package com.stepdefinitions;
 
+import java.util.Set;
+
+import org.openqa.selenium.Cookie;
+import org.openqa.selenium.WebDriver;
+
 import com.aventstack.extentreports.ExtentReports;
 import com.aventstack.extentreports.ExtentTest;
 import com.aventstack.extentreports.reporter.ExtentSparkReporter;
 import com.setup.Base;
-import com.utils.CookieManager;
 
 import io.cucumber.java.After;
 import io.cucumber.java.AfterAll;
@@ -14,12 +18,14 @@ import io.cucumber.java.Scenario;
 
 public class Hooks extends Base {
 
-    public static ExtentSparkReporter spark;
+    public static WebDriver driver; // WebDriver instance
     public static ExtentReports extReports;
     public static ExtentTest extTest;
+    public static ExtentSparkReporter spark;
+ 
 
     @BeforeAll
-    public static void ExtentReportSetup() {
+    public static void extentReportSetup() {
         spark = new ExtentSparkReporter("reports//ExtentReport.html");
         extReports = new ExtentReports();
         extReports.attachReporter(spark);
@@ -27,34 +33,23 @@ public class Hooks extends Base {
 
     @AfterAll
     public static void afterAll() {
-        extReports.flush();
-    }
-
-    @Before
-    public void setup(Scenario scenario) {
-        // 1️⃣ Launch browser
-        launchBrowser();
-
-        // 2️⃣ Create test in ExtentReports
-        extTest = extReports.createTest(scenario.getName());
-
-        // 3️⃣ Clear old browser data to avoid multiple users appearing
-        CookieManager.clearBrowserData(driver);
-
-        // 4️⃣ Load saved cookies, localStorage, sessionStorage (if exists)
-        boolean cookiesLoaded = CookieManager.load(driver);
-        if (cookiesLoaded) {
-            System.out.println("✅ Cookies, localStorage, and sessionStorage loaded in Hooks");
-        } else {
-            System.out.println("⚠️ No saved cookies found. Fresh login may be required");
+        if (extReports != null) {
+            extReports.flush();
         }
     }
 
+    @Before
+    public void setUp(Scenario scenario) {
+        launchBrowser(); // Initialize driver
+        driver = Base.driver; // Assign driver from Base
+        extTest = extReports.createTest(scenario.getName());
+    }
+
     @After
-    public void teardown() {
-        Base.sleep(); // small wait before closing
-        if(driver != null) {
-            driver.quit(); // close browser after each scenario
+    public void tearDown() {
+        Base.sleep();
+        if (driver != null) {
+            driver.quit();
         }
     }
 }
