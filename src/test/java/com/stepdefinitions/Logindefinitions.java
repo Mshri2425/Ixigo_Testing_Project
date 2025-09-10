@@ -15,13 +15,13 @@ public class Logindefinitions {
 
     WebDriver driver = Hooks.driver;
     ExtentTest extTest = Hooks.extTest;
-    Loginpage loginPage;   // declare
+    Loginpage loginPage; // declare
 
     @Given("the user is on the login page")
     public void the_user_is_on_the_login_page() {
         // ✅ initialize here for both positive & negative flows
         loginPage = new Loginpage(driver, extTest);
-        loginPage.loadCookiesFromFile("Cookies.data");
+
         String expRes = "https://www.ixigo.com/";
         String actRes = driver.getCurrentUrl();
         Assert.assertEquals(actRes, expRes, "User is not on Ixigo login page!");
@@ -56,9 +56,6 @@ public class Logindefinitions {
     public void enters_the_correct_otp() {
         loginPage.enterOtpManually();
         Base.sleep();
-        if (loginPage.navigatedpage()) {
-            loginPage.saveCookiesToFile("Cookies.data");
-        }
     }
 
     @Then("the user should be navigated to the booking page")
