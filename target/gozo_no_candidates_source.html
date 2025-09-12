@@ -1,0 +1,1417 @@
+<html lang="zxx" class="no-js" style="display: block;"><head>
+	<!-- Mobile Specific Meta -->
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<!-- Favicon-->
+	<link rel="shortcut icon" href="img/fav.png">
+	<!-- Author Meta -->
+	<meta name="author" content="colorlib">
+	<!-- Meta Description -->
+	<meta name="description" content="">
+	<!-- Meta Keyword -->
+	<meta name="keywords" content="">
+	<!-- meta character set -->
+	<meta charset="UTF-8">
+	<!-- Site Title -->
+	<script src="js/apicall.js"></script>
+
+	<title>Book Airport Cab</title>
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+	<link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&amp;display=swap" rel="stylesheet">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/themes/material_green.css">
+	<link href="https://fonts.googleapis.com/css?family=Poppins:100,200,400,300,500,600,700" rel="stylesheet">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+	<link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&amp;display=swap" rel="stylesheet">
+	<!--CSS ============================================= -->
+	<link rel="stylesheet" href="css/linearicons.css">
+	<link rel="stylesheet" href="css/font-awesome.min.css">
+	<link rel="stylesheet" href="css/bootstrap.css">
+	<link rel="stylesheet" href="css/magnific-popup.css">
+	<link rel="stylesheet" href="css/nice-select.css">
+	<link rel="stylesheet" href="css/animate.min.css">
+	<link rel="stylesheet" href="css/jquery-ui.css">
+	<link rel="stylesheet" href="css/main.css">
+	<!-- <link rel="stylesheet" href="css/custom.css"> -->
+	<link rel="stylesheet" href="css/cab_listing.css">
+	<script>
+		document.addEventListener('DOMContentLoaded', function () {
+			// Retrieve the stored formData from sessionStorage
+			const storedFormData = sessionStorage.getItem('formData');
+			
+
+			if (storedFormData) {
+				const formData = JSON.parse(storedFormData);
+                 setTimeout(function(){
+					if(formData.is_arrival){
+					const des= document.getElementById("to-main").innerHTML=formData.source;
+					document.getElementById("from-main").innerHTML= formData.destination;
+				}
+				 },1000)
+				
+				
+				setTimeout(function () {
+					// Set trip type value
+					const tripTypeElem = document.getElementById('trip-type');
+					if (tripTypeElem) {
+						tripTypeElem.value = formData.tripType || '';
+					}
+
+					// Set 'from' dropdown value
+					const fromDropdown = document.getElementById('from-dropdown');
+					if (fromDropdown) {
+						fromDropdown.value = formData.source || '';
+						// Trigger change event
+						fromDropdown.dispatchEvent(new Event('change'));
+					}
+
+					// Set 'to' dropdown value
+					const toDropdown = document.getElementById('to-dropdown');
+					if (toDropdown) {
+						toDropdown.value = formData.destination || '';
+						// Trigger change event
+						toDropdown.dispatchEvent(new Event('change'));
+					}
+
+					// Set pickup date
+					const pickupDateInput = document.getElementById('pickup-date-input');
+					if (pickupDateInput) {
+						pickupDateInput.value = formData.pickup_date || '';
+					}
+
+					// Set pickup time
+					const pickupTimeInput = document.getElementById('pickup-time-input');
+					if (pickupTimeInput) {
+						pickupTimeInput.value = formData.pickup_time || '';
+					}
+				}, 200);  // Small delay to ensure DOM is fully loaded
+			} else {
+				console.log("No form data found in sessionStorage.");
+			}
+		});
+
+
+	</script>
+
+<script src="js/custom.js" type="text/javascript"></script><script src="https://maps.googleapis.com/maps/api/js?v=3&amp;key=AIzaSyDiyB1OBSrYIByNY8RlYONEgD_7vIJfDK4&amp;libraries=places&amp;v=weekly" type="text/javascript" async="true"></script><script type="text/javascript" charset="UTF-8" src="https://maps.googleapis.com/maps-api-v3/api/js/62/5d/common.js"></script><script type="text/javascript" charset="UTF-8" src="https://maps.googleapis.com/maps-api-v3/api/js/62/5d/util.js"></script><script type="text/javascript" charset="UTF-8" src="https://maps.googleapis.com/maps-api-v3/api/js/62/5d/distance_matrix.js"></script><script type="text/javascript" charset="UTF-8" src="https://maps.googleapis.com/maps/api/js/AuthenticationService.Authenticate?1shttps%3A%2F%2Fixigo.bookairportcab.com%2FixigoMice%2Fcab_listing.html&amp;4sAIzaSyDiyB1OBSrYIByNY8RlYONEgD_7vIJfDK4&amp;8b0&amp;callback=_xdc_._yi9lr1&amp;key=AIzaSyDiyB1OBSrYIByNY8RlYONEgD_7vIJfDK4&amp;token=16352"></script><script type="text/javascript" charset="UTF-8" src="https://maps.googleapis.com/maps/api/js/DistanceMatrixService.GetDistanceMatrix?1m3&amp;1m2&amp;1dNaN&amp;2dNaN&amp;2m3&amp;1m2&amp;1d19.093908&amp;2d72.853554&amp;3e0&amp;6sen-US&amp;r_url=https%3A%2F%2Fixigo.bookairportcab.com%2FixigoMice%2Fcab_listing.html&amp;callback=_xdc_._k1e44s&amp;key=AIzaSyDiyB1OBSrYIByNY8RlYONEgD_7vIJfDK4&amp;token=103104"></script></head>
+
+<body style="display: block;">
+	<!-- #header -->
+	<header id="header" style="background:#EB1C23;">
+		<div class="main-menu" style="padding-left:4em;">
+			<div class="row align-items-center justify-content-between d-flex">
+				<a href="index.html" style="color:white; padding-bottom:10px;">
+					<img src="https://edge.ixigo.com/st/vimaan/_next/static/media/logo.44edf9f1.svg" alt="bookairportcab" style="padding-top:8px; width:5rem">
+				</a>
+				<!-- Optional: Add navigation for different categories like Flights, Hotels, etc. -->
+				<!-- <nav>
+					<ul >
+						<li><a  style="color:#25304B" href="#">Flights</a></li>
+						<li><a  style="color:#25304B" href="#">Hotels</a></li>
+						<li><a  style="color:#25304B" href="#">Cabs</a></li>
+					</ul>
+				</nav> -->
+			</div>
+		</div>
+	</header>
+	<div class="form-section" style="background:#EB1C23;">
+		<div class="container">
+			<div id="booking" class="section">
+				<div class="section-center">
+
+					<div class="booking-form col-12">
+						
+						<form id="ctn" style="display:flex; gap:20px;">
+							<div class="row form-major-box">
+      
+                         <div class="col-md-4 form-box to_locs" id="to-loc">
+						   <label for="from-label" class="form-label regular">FROM</label>
+                           <div class="form-select-wrapper" onclick="toggleDropdown()">
+									<div id="to-label" class="form-label-text">
+										<div class="main-text" id="to-main">undefined</div>
+										<div class="sub-text" id="to-sub"></div>
+									</div>
+									<input type="text" id="to-input" class="form-control" placeholder="Search Nearest Airport" oninput="filterOptions()" style="display: none; z-index:1;">
+									<ul id="to-options" class="autocomplete-results"><li class="autocomplete-item" data-city-code="DXB">Dubai - Dubai Airport-T1</li><li class="autocomplete-item" data-city-code="DXB">Dubai - Dubai Airport-T2</li><li class="autocomplete-item" data-city-code="DXB">Dubai - Dubai Airport-T3</li></ul>
+					        </div>
+								
+						</div>
+                        	
+
+							<div class="flip-btn-wrapper" id="flip-btn-wrapper" style="display:none;">
+								<button id="flip-btn" class="flip-btn">
+									<!-- <img src="./img/Switch_destination.png" alt="switch"> -->
+									<!-- <i class="fa-solid fa-exchange-alt"></i> -->
+								</button>
+							</div>
+
+
+                        <!-- To Section -->
+							<div class="col-md-4 form-box from_loc">
+								<label for="to-label" class="form-label regular">TO</label>
+								<div class="form-select-wrapper">
+									<div id="from-label" class="form-label-text">
+										<div class="main-text" id="from-main">Mumbai - CSMI Airport-T1</div>
+										<div class="sub-text" id="from-sub"></div>
+									</div>
+									<input id="from-input" class="form-control" type="text" placeholder="Enter Drop Location" autocomplete="off" style="display: none;">
+									<ul class="autocomplete-results auto-from" style="display: none;"></ul>
+								</div>
+							</div>
+
+
+							<!-- <div class="col-md-3 form-box" id="to-loc"></div>
+								<label for="to-label" class="form-label regular">TO</label>
+								<div class="form-select-wrapper">
+									<input type="text" id="to-input" class="form-control" placeholder="Drop Location" oninput="filterOptions()" />
+									<ul id="to-options" class="autocomplete-results" style="display:none;"></ul>
+								</div>
+							</div> -->
+
+
+							<!-- Departure Date Section -->
+							<div class="col-md-2 form-box">
+								<label for="departure-date" class="regular">Pickup Date</label>
+								<div class="date-container" id="display-date" onclick="document.getElementById('hidden-date-input').showPicker()">
+									<span class="date-text">
+										<span class="day-part" id="day-part">Saturday, Sep 13, 25</span>
+										<span class="month-year-part regular" id="month-year-part">Sept'25</span>
+									</span>
+									<br>
+									<span class="day-text regular" id="day-text">Friday</span>
+								</div>
+								<input type="date" id="hidden-date-input" style="opacity: 0; position: absolute;">
+							</div>
+
+              <!-- Return Date Section -->
+							<div class="col-md-2 form-box" id="return-datediv" style="display:none">
+								<label for="return-date">Return Date</label>
+								<div class="date-container" id="display-date" onclick="document.getElementById('hidden-date-input1').showPicker()">
+									<span class="date-text1">
+										<span class="day-part1" id="day-part1">13</span>
+										<span class="month-year-part1" id="month-year-part1">Sept'25</span>
+									</span>
+									<br>
+									<span class="day-text1" id="day-text1">Saturday</span>
+								</div>
+								<input type="date" id="hidden-date-input1" style="opacity: 0; position: absolute;" disabled="" min="2025-09-13">
+							</div>
+
+
+
+							<!-- Pickup Time -->
+							<div class="col-md-2 form-box">
+								<label for="pickup-time" class="regular" style="font-size: 14px;">Pickup-Time</label>
+								<div class="time-container" style="cursor: pointer; text-align: left; max-width: 150px;">
+									<div class="time-display" style="font-size: 24px; font-weight: 500;" id="displayed-time">11:38 AM</div>
+									<div class="timezone-info" style="font-size: 11px; font-style: italic; color:#4D4D4D; line-height: 10px; padding-top: 10px;">
+										
+									</div>
+								</div>
+								<input type="time" id="pickup-time" style="opacity: 0; color:#4D4D4D;">
+							</div>
+                            
+                </div>
+							<div class="editButton">
+								<div class="form-btn submit-btn-wrapper" id="back" style="margin-left: auto;">
+									<button class="submit-btn" style="background:rgba(0, 0, 0, 0.835)" type="button">Back</button>
+								</div>
+								<div class="form-btn submit-btn-wrapper" id="edit" style="margin-left: auto; ;">
+									<button class="submit-btn" type="button">Edit</button>
+								</div>
+								<div class="form-btn  editSearch" style="margin-left: auto;">
+									<button class="submit-btn" style="background:#dc3545" id="submit-btn" type="submit">SEARCH</button>
+								</div>
+							</div>
+							
+						</form>
+					</div>
+
+				</div>
+			</div>
+
+		</div>
+	</div>
+
+	<!-- SORTING CONTAINER -->
+	<div class="sorting-container">
+		<div class="sorting-text container">
+			
+			<!-- <span>Sorted By</span>
+				<span class="sort-option" id="sortDropdown">
+					<span>Price (Lowest to Highest) <i class="fa fa-caret-down"></i></span>
+				</span>
+				<span class="separator">|</span> -->
+			<span class="route-info" id="route-info"></span>
+		</div>
+
+		<div class="dropdown-content" id="dropdownContent">
+			<p class="dropdown-item" data-value="price-low-high">Price (Lowest to
+				Highest)</p>
+			<p class="dropdown-item" data-value="ratings-high-low">Ratings (Highest to
+				Lowest)</p>
+		</div>
+	</div>
+
+	<div class="container-fluid container">
+		<!-- Loader Start -->
+		<div class="loader-container">
+			<div class="loader"></div>
+		</div>	
+				<!-- Loader end  -->
+		
+		<div class="row">
+			<!-- Left: Filter Section -->
+			<div class="col-md-3 filter-section">
+				<form id="filter-form">
+					<span>SELECT CAB TYPES</span>
+					
+					<div class="cabType">
+						<input type="radio" id="hatchback" name="cabType" value="Hatchback">
+						<label for="hatchback"><img src="img/new_Mini.png" height="50" width="50">
+							&nbsp;&nbsp;Hatchback</label>
+					</div>
+					<div class="cabType">
+						<input type="radio" checked="" id="sedan" name="cabType" value="Sedan">
+						<label for="sedan"><img src="img/new_Sedan.png" height="50" width="50">
+							&nbsp;&nbsp;Sedan</label>
+					</div>
+					<div class="cabType">
+						<input type="radio" id="suv" name="cabType" value="SUV">
+						<label for="suv"><img src="img/new_MUV.png" height="50" width="50">
+							&nbsp;&nbsp;SUV</label>
+					</div>
+				</form>
+			</div>
+
+			<!-- Middle: Cab Listings Section -->
+
+			<div class="col-md-9 fareContainer">
+				
+				<div class="cancellation-banner">
+					<i class="fas fa-check-circle"></i>
+					Free cancellation is available. Driver and cab detail will be provided
+					after booking.
+				</div>
+
+				<div class="cab-listings">
+					
+				</div>
+			</div>
+
+			<div class="loader" style="display: none;" id="loader"></div>
+		</div>
+	</div>
+
+	<!-- // Extra Modals and popups -->
+	<div class="modal fade" id="BootstrapModal" tabindex="-1" role="dialog" aria-labelledby="BootstrapModalTitle" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered" role="document">
+			<div class="modal-content">
+				<div class="modal-header border-0">
+					<h5 class="modal-title" id="ModalLongTitle">Add Margin amount to your
+						fare</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">×</span>
+					</button>
+				</div>
+				<form id="faremargin-form">
+					<div class="modal-body d-flex my-2">
+						<input type="num" placeholder="Enter amount..." id="margin_amount_input" required="">
+						<button type="submit" class="btn">Add Margin</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+
+	<script src="js/vendor/jquery-2.2.4.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+	<script src="js/vendor/bootstrap.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
+	
+	<!-- // OLD SCRIPT START-->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.15.2/moment.min.js"></script>
+	<script src="js/swiper-bundle.min.js"></script>
+	<script src="js/moment.js"></script>
+	<script src="js/track.js"></script>
+	<!-- // OLD SCRIPT END-->
+
+	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBhOdIF3Y9382fqJYt5I_sswSrEw5eihAA"></script>
+	<script src="js/easing.min.js"></script>
+	<script src="js/hoverIntent.js"></script>
+	<script src="js/superfish.min.js"></script>
+	<script src="js/jquery.ajaxchimp.min.js"></script>
+	<script src="js/jquery.magnific-popup.min.js"></script>
+	<script src="js/jquery-ui.js"></script>
+	<script src="js/jquery.nice-select.min.js"></script>
+	<script src="js/mail-script.js"></script>
+	<script src="js/main.js"></script>
+	<script src="js/helper.js"></script>
+	<script src="js/form.js"></script>
+	<script src="js/populate_data.js"></script>
+	<script src="js/custom.js"></script>
+	<!-- <script src="js/offer_section.js"></script> -->
+	<script>
+
+		// Global variables /////////
+		let marginAmount = 0;
+		var GOZOFareid = 0;
+		var fixedFareId = 0;
+		var quickrideFareId = 0;
+		var megaSearchId = 0;
+		var meruSearchId = 0;
+		var bluSmartSearchId = 0;
+		var wtiSearchId = 0;
+		var WTICAB_Response = {};
+        var WTICAB_Fare_Payload = {};
+		var cardData=[];
+
+
+		document.addEventListener('DOMContentLoaded', () => {
+			const pickUpLocation = document.querySelector('#from-main');
+			if (pickUpLocation.textContent.length > 25) {
+				pickUpLocation.textContent = pickUpLocation.textContent.substring(0, 25) + '...';
+			}
+			
+			
+
+		});
+
+
+		function toggleDropdown2(event) {
+			const dropdownMenu = document.querySelector('.dropdown-menu');
+			dropdownMenu.classList.toggle('show');
+		}
+
+		// Function to update selected trip and close dropdown
+		function updateForm(selectedTrip) {
+			document.getElementById('selected-trip').innerText = selectedTrip;
+			const dropdownMenu = document.querySelector('.dropdown-menu');
+			dropdownMenu.classList.remove('show');
+		}
+
+		// Close the dropdown if the user clicks outside of it
+		window.onclick = function (event) {
+			if (!event.target.matches('.dropdown-label')) {
+				const dropdowns = document.getElementsByClassName('dropdown-menu');
+				for (let i = 0; i < dropdowns.length; i++) {
+					dropdowns[i].classList.remove('show');
+				}
+			}
+		};
+
+
+		$('#BootstrapModal').on('shown.bs.modal', function () {
+			$('#margin_amount_input').trigger('focus');
+			marginAmount != 0 ? document.getElementById("margin_amount_input").value = marginAmount : ''
+		})
+
+	</script>
+	<script>
+		function toggleDropdown2(event) {
+			const dropdownMenu = document.querySelector('.dropdown-menu');
+			dropdownMenu.classList.toggle('show');
+			event.stopPropagation();
+		}
+
+		window.onclick = function (event) {
+			const dropdownMenu = document.querySelector('.dropdown-menu');
+			if (!event.target.closest('.custom-dropdown')) {
+				dropdownMenu.classList.remove('show');
+			}
+		};
+	</script>
+
+	<script>
+		document.addEventListener('DOMContentLoaded', async function () {
+			let cabData = [];
+
+			// LoadCity name Start
+		async function loadCity() {
+			let travelType = localStorage.getItem("TravelType");
+			let TripType= sessionStorage.getItem("is_departure") ==1 ? "is_departure" : "is_arrival"
+			let url;
+			if (travelType == "International") {
+				url = BaseURL + domain + "/webapi/InternationalCityList";
+			} else {
+				url = BaseURL + domain + "/webapi/getCityList";
+			}
+			return new Promise(async function (resolve, reject) {
+				$.ajax({
+				type: "GET",
+				url: url,
+				contentType: "application/json",
+				dataType: "json",
+				success: function (data) {
+					let dynamicOption = "";
+					var cityArray = [];
+					data.forEach((element) => {
+					if (element[TripType] == "1") {
+						cityArray.push(element);
+					}
+					});
+					localStorage.setItem("cityListdata", JSON.stringify(cityArray));
+					resolve(true);
+				},
+				error: function (e) {
+					console.log(e);
+					reject("City list not found");
+				},
+				});
+			});
+		}
+
+		loadCity()
+
+		// LoadCity name End
+
+
+			async function fetchCabData() {
+				const storedFormData = sessionStorage.getItem('formData');
+				if (storedFormData) {
+					const formData = JSON.parse(storedFormData);
+					const city = formData.cityCode;
+					const tripType = "Ride";
+					Track_LoadAnalytics(
+					"",
+					sessionStorage["AirportRideType"],
+					formData.tripType,
+					"",
+					formData.source,
+					formData.cityCode,
+					formData.terminal,
+					formData.destination,
+					formData.source_lat,
+					formData.source_long,
+					formData.destination_lat,
+					formData.destination_long,
+					formData.pickup_date,
+					formData.pickup_time,
+					localStorage.CouponCode != undefined ? localStorage.CouponCode : "",
+					"",
+					"",
+					formData.distance
+					);
+
+					if (city && tripType) {
+						document.getElementById("loader").style.display = "block";
+						let triptype;
+						localStorage.getItem("TravelType") === "International" ? triptype= "international" : triptype= tripType;
+						const apiUrl = `https://prodapi.mojoboxx.com/spicescreen/webapi/getMultiplePartner?city=${encodeURIComponent(city)}&category=${encodeURIComponent(triptype)}`;
+
+						try {
+							const response = await fetch(apiUrl);
+							if (response.ok) {
+								cabData = await response.json(); // Store cabData globally
+								document.getElementById("loader").style.display = "none";
+								renderCabs(cabData);
+							} else {
+								console.error('API call failed with status:', response.status, response.statusText);
+								document.getElementById("loader").style.display = "none";
+							}
+						} catch (error) {
+							console.error('Error during fetch:', error);
+							document.getElementById("loader").style.display = "none";
+						}
+					} else {
+						console.error('Missing city or tripType in formData');
+					}
+				} else {
+					console.error('No formData found in sessionStorage');
+				}
+
+				// Event listener for cab type change
+				document.querySelectorAll('input[name="cabType"]').forEach(cabType => {
+					cabType.addEventListener('change', function () {
+						renderCabs(cabData);
+					});
+				});
+			}
+
+
+			// Load / Call Partner list api on document ready ///////////////////
+			setTimeout(async () => {
+				await fetchCabData();
+			}, 2000)
+
+
+			// Add margin amount in fare of all cab partners ///////////////////
+			const formData = document.getElementById("faremargin-form")
+			formData.addEventListener("submit", async (e) => {
+				e.preventDefault()
+				marginAmount = document.getElementById("margin_amount_input").value;
+				isNaN(marginAmount) ? alert("Enter numeric number only ") : null
+				await fetchCabData();
+				document.querySelectorAll(".marginAddText").forEach((paragraph) => {
+					paragraph.classList.toggle("d-none")
+					paragraph.innerText = `Margin added ₹ ${marginAmount}`
+				})
+				$("[data-dismiss=modal]").trigger({ type: "click" });
+			})
+		});
+
+		function setupCabTypeSelection() {
+			const cabTypes = document.querySelectorAll('input[name="cabType"]');
+			let selectedCabType = 'Sedan';
+
+			cabTypes.forEach(cabType => {
+				if (cabType.checked) {
+					selectedCabType = cabType.value;
+				}
+			});
+
+			return selectedCabType;
+		}
+
+		// Function to determine seats based on selected cab type
+		function getSeatsByCabType(cabType) {
+			switch (cabType) {
+				case 'Sedan':
+					return 4;
+				case 'SUV':
+					return 6;
+				case 'Hatchback':
+					return 4;
+				default:
+					return 4;
+			}
+		}
+
+		const getFareByPartner = async (partnerName, data,index, callback) => {
+			try {
+				let url = "";
+				switch (partnerName) {
+					case "GOZO CABS":
+						url = "https://prodapi.mojoboxx.com/spicescreen/webapi/getGozoFares";
+						break;
+					case "QUICKRIDE":
+						url = "https://prodapi.mojoboxx.com/spicescreen/webapi/getQuickRideFare";
+						break;
+					case "SIGNATURE":
+					case "EEE TAXI":
+					case "ORIX":
+					case "AVIS":
+					case "ECO":
+					case "SIGNATURE PRIME":
+					case "EVERA":
+					case "TREVCABS PREMIUM":
+					case "SNAP-E CABS":
+						url = `https://prodcaroma.mojoboxx.com/api/v1/prod/thirdparty/getActualFare?partner=${encodeURIComponent(partnerName)}&city=${data.city}&km=${data.km}&cab_type=${data.cab_type}&trip_type=${data.trip_type}`;
+						break;
+					case "TAXIBAZAAR":
+						url = `https://prodapi.mojoboxx.com/spicescreen/webapi/getTaxiBazaarFare`;
+						break;
+					case "MEGA":
+						url = `https://prodapi.mojoboxx.com/spicescreen/webapi/getMegaFare`;
+						break;
+					case "MERU":
+						url = `https://prodapi.mojoboxx.com/spicescreen/webapi/getMeruFarePrice`;
+						break;
+					case "BLUSMART":
+						url = `https://prodapi.mojoboxx.com/spicescreen/webapi/getBlusmartFare`;
+						break;
+					case "WTI CABS":
+						url = `https://prodapi.mojoboxx.com/spicescreen//webapi/WTI_FareSearch`;
+						// url=`https://preprodapi.mojoboxx.com/preprod/webapi/WTI_FareSearch`;
+						break;
+					case "transferz":
+						url="https://prodapi.mojoboxx.com/spicescreen/webapi/quotes";
+						break;
+
+					default:
+						console.error("Unsupported partner:", partnerName);
+						return;
+				}
+
+
+				const settings = partnerName === "SIGNATURE" || partnerName === "EEE TAXI" || partnerName === "ORIX" || partnerName === "AVIS" || partnerName === "ECO" || partnerName === "SIGNATURE PRIME" || partnerName === "EVERA" || partnerName=== "TREVCABS PREMIUM" || partnerName=== "SNAP-E CABS"? {
+					"url": url,
+					"method": "GET",
+				} : {
+					"url": url,
+					"method": "POST",
+					"headers": {
+						"Content-Type": "application/json"
+					},
+					"data": JSON.stringify(data)
+				};
+				$.ajax(settings)
+					.done(function (response) {
+						callback(response);
+					})
+					.fail(function (jqXHR, textStatus) {
+						console.error("API call failed:", textStatus);
+						document.querySelector(`[container-key="key-${index}"]`).style.display = "none"
+						document.querySelector('cab-listing-item').style.display = "none"		
+					});
+
+
+			} catch (error) {
+				console.error("Error fetching fare:", error);
+				callback({ error: "Failed to fetch fare data. Please try again later." });
+			}
+
+		}
+
+
+		async function renderCabs(cabs) {
+			const cabListContainer = document.querySelector('.cab-listings');
+			cabListContainer.innerHTML = '';
+
+			const selectedCabType = setupCabTypeSelection(); // Get the selected cab type
+			// <p class="extra-km-fare"><i class="fas fa-route"></i> Extra km fare: INR 20 per kilometer</p>
+
+			cabs.forEach(async (cab, index) => {
+				if (cab?.website_name?.includes('ixigo')) {
+					const seats = getSeatsByCabType(selectedCabType);
+					const electricPartners = ["BLUSMART", "EVERA", "SIGNATURE PRIME", "TREVCABS PREMIUM", "SNAP-E CABS"];
+					console.log("Partner", cab?.partner_name)
+					const fuelType = electricPartners.includes(cab.partner_name) ? "Electric" : "Petrol, CNG";
+					if(localStorage["TravelType"] ==="Domestic"){
+					cabListContainer.innerHTML += `
+					<!-- <div class="cancellation-banner" cancellation-key=key-${index}>
+						<i class="fas fa-check-circle"></i>
+						Free cancellation is available, and time details will be provided after booking, ensuring minimum rates.
+					</div> -->
+					<div class="cab-listing-item" container-key=key-${index}>
+						<div class="car-details">
+							<span class="car-logo"> <img src="${cab.Logo_URL || './img/car.webp'}" alt="Car Image" class="car-image" /></span>
+							
+							<div class="car-info">
+								<h5>
+									${cab.partner_name || 'N/A'}
+									<span class="rating">
+										<span class="rating-value">${cab.Rating}/5</span>
+										<span class="rating-count">(${cab.Review} reviews)</span>
+									</span>
+								</h5>
+								<p class="car-features">• ${selectedCabType} &nbsp;• AC &nbsp;• ${seats} Seats </p>
+								<p class="spacious"></p>
+								<p class="fuel-type">
+									<i class="fas fa-gas-pump"></i> 
+									Fuel Type: <span id="fuel-type">${fuelType}</span>
+								</p>
+								<p class="cancellation"><i class="fas fa-times-circle"></i> Cancellation:Free cancellation until pickup time</p>
+							</div>
+						</div>
+						<div class="price-details">
+							<p class="discounted-price" id="baseFare-${index}">loading</p> 
+							<p class="taxes">+ Taxes & Charges</p>
+							<button class="submit-btn book-btn" 
+								data-partner="${cab.partner_name || 'N/A'}" 
+								data-type="${selectedCabType}" 
+								data-index="${index}" 
+								data-image="${cab.Logo_URL || './img/car.webp'}" 
+								data-seats="${seats}" 
+								data-rating="${cab.Rating || 'N/A'}" 
+								data-review="${cab.Review || '0'}"
+								data-fuel="${fuelType}">
+								 Book Now
+							</button>
+							<button type="button"  data-toggle="modal" data-target="#BootstrapModal" class="add-margin-btn border-0 mr-3 mt-2 rounded text-capitalize text-info text-italic"> + Add your margin </button>
+							<p class="d-none fa-2xs mr-4 mt-10 text-center marginAddText">Margin added ₹ 0 </p>
+						</div>
+					</div>
+				`;
+				}
+			}
+
+			function InternationalCabs(cardData){
+				let traveltype= localStorage["TravelType"]==="International" ? true : false;
+				document.querySelectorAll(".cabType")[1].style.display="none";
+				document.querySelectorAll(".cabType")[2].style.display="none";
+				document.querySelector("label[for='sedan']").innerHTML=         '<img src="img/new_Sedan.png" height="50" width="50" /> &nbsp;&nbsp; Transferz Cabs';
+				if (traveltype){
+					cardData.sort((a, b) => a.price - b.price);
+                    let cardElement= cardData.map((card)=>{
+						// cabListContainer.setAttribute("quoteId", card.quoteId);
+						cabListContainer.insertAdjacentHTML("beforeend", `
+							<div class="cab-listing-item" container-key=key-${card.quoteId}>
+								<div class="car-details">
+									<span class="car-logo"> <img src="${card.imageSrc}" alt="${card.altText}" class="car-image" /></span>
+									
+									<div class="car-info" style="display: flex; flex-direction: column; justify-content:space-around;">
+										<h5>
+											${card.altText || 'N/A'}
+											<span class="rating">
+												<span class="rating-value">${cab.Rating}/5</span>
+												<span class="rating-count">(${cab.Review} reviews)</span>
+											</span>
+										</h5>
+										<p class="car-features"> 
+											  <span>
+												<img src="img/people_icon.png" alt="personImg" class="carDetail_Box_img" />
+												<span class="vehicle_card_para"> Max. ${card.passengerCapacity} </span> 
+											   </span> 
+											   <span>
+												  <img src="img/luggage_icon.png" alt="luggageImg" class="carDetail_Box_img" />
+												  <span class="vehicle_card_para"> Max. ${card.luggageCapacity} </span>
+											  </span></p>
+										<p class="cancellation"><i class="fas fa-times-circle"></i> Cancellation:Free cancellation until pickup time</p>
+									</div>
+								</div>
+									<div class="price-details">
+									<p  id="baseFare-${card.quoteId}">$ ${card.price}</p> 
+									<p class="taxes">+ Taxes & Charges</p>
+									<button class="submit-btn book-btn" 
+										data-partner="${cab.partner_name || 'N/A'}" 
+										data-type="${card.altText}" 
+										data-index="${card.quoteId}"
+										data-totalFare="${card.price}"
+										data-image="${card.imageSrc}" 
+										data-rating="${cab.Rating || 'N/A'}" 
+										data-review="${cab.Review || '0'}"
+										data-capacity="${card.passengerCapacity || "N/A"}"
+										data-luggageCapacity="${card.luggageCapacity || "N/A"}"
+										data-currency="${card.currency}"
+										>
+										Book Now
+									</button>
+									
+							<button type="button"  data-toggle="modal" data-target="#BootstrapModal" class="add-margin-btn border-0 mr-3 mt-2 rounded text-capitalize text-info text-italic"> + Add your margin </button> 
+							<p class="d-none fa-2xs mr-4 mt-10 text-center marginAddText">Margin added ₹ 0 </p>
+						</div>
+							</div>
+						`);
+						document.querySelector(".loader-container").style.display="none"
+					})
+				}
+			}
+			
+
+				const storedFormData = sessionStorage.getItem('formData');
+				const formData = JSON.parse(storedFormData);
+
+				let startTime = `${formData.pickup_date} ${formData.pickup_time}:00`;
+				let TimeTaken = sessionStorage["ReachDurationinMin"].split(" ")[0];
+			    let EndDateTime = moment(startTime, "YYYY-MM-DD HH:mm:ss").add(TimeTaken, 'minutes').format("YYYY-MM-DD HH:mm:ss");
+				
+				function generateSearchId() {
+					const chars = '0123456789abcdefghijklmnopqrstuvwxyz';
+					let searchId = '';
+					for (let i = 0; i < 13; i++) {
+						searchId += chars[Math.floor(Math.random() * chars.length)];
+
+					}
+					return searchId;
+				}
+
+				// used in mega cabs as need to pass specific date format
+				function formatDateToYMD(dateString) {
+					const date = new Date(dateString);
+					const year = date.getFullYear();
+					const month = (`0${date.getMonth() + 1}`).slice(-2);
+					const day = (`0${date.getDate()}`).slice(-2);
+					return `${year}-${month}-${day}`;
+				}
+
+
+
+				let apiData;
+
+				let city_code = formData.is_arrival ? formData.source_city : formData.destination_city;
+
+				// Switch case to handle different partners and pass appropriate data
+				switch (cab.partner_name) {
+					case 'GOZO CABS':
+						apiData = {
+							"startDate": formData.pickup_date,
+							"startTime": startTime.split(" ")[1],
+							"cab_type": selectedCabType,
+							"mobile": formData.mobile || "",
+							"source_address": formData.source,
+							"source_latitude": formData.source_lat,
+							"source_longitude": formData.source_long,
+							"destination_address": formData.destination,
+							"destination_latitude": formData.destination_lat,
+							"destination_longitude": formData.destination_long,
+							"tripType": "Local"
+						};
+						break;
+					case 'QUICKRIDE':
+						apiData = {
+							"key": "MojoBox-Klm9.45j",
+							"vendor_id": "MOJO_BOXX_ZORY",
+							"destination_name": formData.destination,
+							"destination_city": city_code,
+							"destination_latitude": formData.destination_lat,
+							"destination_longitude": formData.destination_long,
+							"source_name": formData.source,
+							"source_city": formData.source_city,
+							"source_latitude": formData.source_lat,
+							"source_longitude": formData.source_long,
+							"start_time": startTime,
+							"tripType": "Local"
+						};
+						break;
+					case 'SIGNATURE':
+					case 'EEE TAXI':
+					case 'ORIX':
+					case 'AVIS':
+					case 'ECO':
+					case 'SIGNATURE PRIME':
+					case 'EVERA':
+					case 'TREVCABS PREMIUM':
+					case 'SNAP-E CABS':
+						apiData = {
+							"city": city_code,
+							"km": formData.distance,
+							"cab_type": selectedCabType,
+							"trip_type": "departure"
+						};
+						break;
+					case 'TAXIBAZAAR':
+						apiData = {
+							"distance": formData.distance,
+							"fromCity": formData.source_city,
+							"fromLat": formData.source_lat,
+							"fromLon": formData.source_long,
+							"fromState": formData.source_city,
+							"iataCode": formData.cityCode,
+							"returnDate": EndDateTime.split(" ")[0],
+							"startDate": formData.pickup_date,
+							"toCity": city_code,
+							"toLat": formData.destination_lat,
+							"toLon": formData.destination_long,
+							"toState": formData.destination_city,
+							"type": sessionStorage["AirportRideType"] == "arrival" ? 5 : 6
+						};
+						break;
+					case 'MEGA':
+						let meruTime = formData.pickup_date + " " + formData.pickup_time + ":00"
+
+						const oneWayDistance = Math.round(formData.distance);
+						megaSearchId = generateSearchId();
+						apiData = {
+							"destination": {
+								"place_id": null,
+								"address": formData.destination,
+								"latitude": formData.destination_lat,
+								"longitude": formData.destination_long,
+								"city": city_code
+							},
+							"source": {
+								"place_id": null,
+								"address": formData.source,
+								"latitude": formData.source_lat,
+								"longitude": formData.source_long,
+								"city": formData.source_city
+							},
+							"trip_type": "ONE_WAY",
+							"start_time": `${formData.pickup_date}T${formData.pickup_time}`,
+							"end_time": moment(meruTime).add(1, 'hours').format("YYYY-MM-DDTHH:mm:ss"),
+							"search_id": megaSearchId,
+							"one_way_distance": oneWayDistance,
+							"package_distance": 0,
+							"is_instant_search": false
+						}
+						break;
+
+					case 'MERU':
+					   let meruEndTime = formData.pickup_date + " " + formData.pickup_time + ":00"
+
+						meruSearchId = generateSearchId();
+						apiData = {
+							"destination": {
+								"place_id": null,
+								"address": formData.destination,
+								"latitude": formData.destination_lat,
+								"longitude": formData.destination_long,
+								"city": city_code
+							},
+							"source": {
+								"place_id": '',
+								"address": formData.source,
+								"latitude": formData.source_lat,
+								"longitude": formData.source_long,
+								"city": formData.source_city
+							},
+							"trip_type": "ONE_WAY",
+							"start_time": `${formatDateToYMD(formData.pickup_date)}T${formData.pickup_time}`,
+							"end_time": moment(meruEndTime).add(1, 'hours').format("YYYY-MM-DDTHH:mm:ss"),
+							"search_id": meruSearchId,
+							"one_way_distance": Math.floor(formData.distance),
+							"package_distance": 0,
+							"is_instant_search": false
+						};
+						break;
+					case 'BLUSMART':
+						function addHoursToTime(time, hoursToAdd) {
+							const dateTime = new Date(`${formData.pickup_date}T${time}`);
+							dateTime.setHours(dateTime.getHours() + hoursToAdd);
+							return dateTime.toISOString().slice(0, 19).replace('T', ' ');
+						}
+
+						let dateandtime = formData.pickup_date + " " + formData.pickup_time + ":00"
+						bluSmartSearchId = generateSearchId();
+						apiData = {
+							"place_id": "",
+							"src_address": formData.source,
+							"src_latitude": formData.source_lat,
+							"src_longitude": formData.source_long,
+							"src_city": formData.source_city,
+							"dest_address": formData.destination,
+							"dest_latitude": formData.destination_lat,
+							"dest_longitude": formData.destination_long,
+							"dest_city": city_code,
+							"trip_type": "ONE_WAY",
+							"search_id": bluSmartSearchId,
+							"start_time": `${formData.pickup_date} ${formData.pickup_time}:00`,
+							"end_time":moment(dateandtime).add(60, 'minutes').format('YYYY-MM-DD HH:mm:ss'),
+							"one_way_distance": Math.round(formData.distance)
+						};
+
+						break;
+					case "WTI CABS":
+						wtiSearchId = generateSearchId();
+						apiData = {
+							"source_address": formData.source,
+							"source_latitude": formData.source_lat,
+							"source_longitude": formData.source_long,
+							"source_City": formData.source_city,
+							"destination_address": formData.destination,
+							"destination_latitude": formData.destination_lat,
+							"destination_longitude": formData.destination_long,
+							"destination_City": city_code,
+							"RideType": 'Ride',
+							"travelType": sessionStorage["AirportRideType"],
+							"startDatetime": startTime,
+							"EndDatetime": EndDateTime,
+							"Km": Math.round(formData.distance),
+							"duration": TimeTaken,
+							"package_id": "",
+							"trip_type": "ONE_WAY",
+							"search_id": wtiSearchId
+						};
+						WTICAB_Fare_Payload = apiData;
+						break;
+
+					case "transferz":
+						let cityList = JSON.parse(localStorage["cityListdata"]);
+						let languageCode;
+						cityList.forEach((element)=>{
+							
+							if(element.code == formData.cityCode){
+								languageCode = element.language_code;
+								localStorage.setItem("languageCode", languageCode);
+								console.log("language",languageCode);
+							}
+
+
+						})
+						apiData={
+							iataCode: formData.cityCode,
+							"addressSearchPhrase": sessionStorage["AirportRideType"] == "departure" ? formData.source : formData.destination,
+							countryCode: languageCode,
+							pickupDateTime: `${formatDateToYMD(formData.pickup_date)}T${formData.pickup_time}`,
+							adultPassengers: 1,
+							ride_type: sessionStorage["AirportRideType"],
+							checkedLuggage: 1
+						}
+					   break;
+					default:
+						console.error("Unsupported partner:", cab.partner_name);
+						document.querySelector(`[container-key="key-${index}"]`).style.display = "none"
+						document.querySelector('cab-listing-item').style.display = "none"
+						return;
+				}
+
+				await getFareByPartner(cab.partner_name, apiData,index, function (response) {
+					
+					let baseFare = '0';
+					if (cab.partner_name === 'GOZO CABS') {
+						baseFare = response.data.cabRate[0].fare.totalAmount;
+						var gozofare = response["data"]["cabRate"];
+
+						var GozoResponse = response.result;
+						for (let a = 0; a < gozofare.length; a++) {
+						const selectedCabTypes = selectedCabType === "Hatchback" ? "Compact" : selectedCabType;
+
+						if (gozofare[a]["cab"]["category"].toLowerCase() === selectedCabTypes.toLowerCase()) {
+						GOZOFareid = response["data"]["cabRate"][0]["cab"]["id"];
+						}
+						}
+					} else if (cab.partner_name === 'QUICKRIDE') {
+						if (response && response.fareForTaxis && Array.isArray(response.fareForTaxis)) {
+							baseFare = null;
+							response.fareForTaxis.forEach(taxi => {
+								taxi.fares.forEach(fare => {
+									if (fare.vehicleClass.trim().toLowerCase() === selectedCabType.trim().toLowerCase()) {
+										baseFare = fare.totalFare;
+									}
+								});
+							});
+
+							var fareAmountInteger;
+							fetchResponse = response
+							for (let a = 0; a < response.fareForTaxis.length; a++) {
+								let TaxiType = response.fareForTaxis[a].taxiType;
+								if (TaxiType == "Car") {
+									var fareResponse = response.fareForTaxis[a].fares;
+									QuickrideFareResponse = response.fareForTaxis[a].fares;
+									if (fareResponse.length >= 1) {
+										for (let i = 0; i < fareResponse.length; i++) {
+											if (fareResponse[i].taxiType == "Car" && fareResponse[i].vehicleClass.toLowerCase() == selectedCabType.toLowerCase()) { // console.log(fareResponse[i].taxiType);
+												quickrideFareId = fareResponse[i].fixedFareId;
+											}
+
+										}
+									}
+								}
+							}
+						}
+					} 
+					else if (cab.partner_name === 'TAXIBAZAAR') {
+						if (response && response.data.sedanPrice) {
+							const { sedanPrice, suvPrice, hatchbackPrice } = response.data;
+							switch (selectedCabType.trim().toLowerCase()) {
+								case 'sedan':
+									baseFare = response.data.totalPriceSedan;
+									break;
+								case 'suv':
+									baseFare = response.data.totalPriceSuv;
+									break;
+								case 'hatchback':
+									baseFare = response.data.totalPriceHatchback;
+									break;
+								default:
+									baseFare = 'N/A';
+									break;
+							}
+						}
+					} else if (cab.partner_name === 'BLUSMART') {
+						if (response && response.response.car_types) {
+							const carTypes = response.response.car_types;
+							for (const car of carTypes) {
+								// console.log(car.type.trim().toLowerCase() === selectedCabType.trim().toLowerCase(), car.type.trim().toLowerCase(), selectedCabType.trim().toLowerCase())
+								if (car.type.trim().toLowerCase() === selectedCabType.trim().toLowerCase()) {
+									baseFare = car.fare_details.grand_total;
+									break;
+								}
+							}
+
+							if (baseFare === 0) {
+								baseFare = 'N/A';
+							}
+							// console.log(`Base fare for ${selectedCabType}:`, baseFare);
+						}
+					} else if (cab.partner_name === 'MEGA') {
+						// console.log('MEGA CABS RESPONSE', response)							
+						if (response && response.data && response.data.response && response.data.response.car_types) {
+							const carType = response.data.response.car_types.find(car => car.type.toLowerCase() === selectedCabType.trim().toLowerCase());
+							if (carType && carType.fare_details) {
+								baseFare = carType.fare_details.grand_total;
+							}
+
+						}
+					} else if (cab.partner_name === 'MERU') {
+						if (response && response.data && response.data.response && response.data.response.car_types) {
+							const carType = response.data.response.car_types.find(car => car.type.toLowerCase() === selectedCabType.trim().toLowerCase());
+							if (carType && carType.fare_details) {
+								const { base_fare, per_km_charge, min_fare, min_fare_distance_km, distance_booked } = carType.fare_details;
+								let grandTotal = base_fare;
+								if (distance_booked > min_fare_distance_km) {
+									const extraDistance = distance_booked - min_fare_distance_km;
+									grandTotal += extraDistance * per_km_charge;
+								}
+								grandTotal = Math.max(grandTotal, min_fare);
+								baseFare = grandTotal;
+							}
+						}
+					}
+					else if (cab.partner_name === "transferz"){
+						let { quotes } = response;
+						if(quotes.length!=0 ){
+						   cardData = quotes.map((quote) => {
+							let vehicleName;
+							let category = quote.vehicleCategory;
+
+							if (category.includes("_")) {
+								let carText = category.split("_");
+								if (carText.length === 1) {
+								vehicleName = carText[0];
+								}
+								if (carText.length === 2) {
+								vehicleName = carText[0] + " " + carText[1];
+								}
+								if (carText.length === 3) {
+								vehicleName = carText[0] + " " + carText[1] + " " + carText[2];
+								}
+								if (carText.length === 4) {
+								vehicleName =
+									carText[0] +
+									" " +
+									carText[1] +
+									" " +
+									carText[2] +
+									" " +
+									carText[3];
+								}
+							} else {
+								vehicleName = category;
+							}
+							return {
+								imageSrc: quote.vehicleImageUrl,
+								altText: vehicleName,
+								quoteId: quote.id,
+								passengerCapacity: quote.passengerCapacity,
+								luggageCapacity: quote.luggageCapacity,
+								price: quote.price,
+								currency: quote.currencyCode,
+							};
+							});
+							sessionStorage.setItem("cardData", JSON.stringify(cardData));
+							InternationalCabs(cardData);
+
+						}
+					}
+					// LoadFareDb start
+					else if (cab.partner_name === "SIGNATURE" || cab.partner_name === "EEE TAXI" || cab.partner_name === "ORIX" || cab.partner_name === "AVIS" || cab.partner_name === "ECO" || cab.partner_name === "SIGNATURE PRIME" || cab.partner_name === "EVERA" || cab.partner_name=== "TREVCABS PREMIUM" || cab.partner_name=== "SNAP-E CABS") {
+						let distance= Math.round(formData.distance);
+						if ( (cab.partner_name === 'EVERA' || cab.partner_name === 'TREVCABS PREMIUM' || cab.partner_name === 'SNAP-E CABS') && response.base_per_km && response.success) {
+
+							const {base_slab, base_fare, base_per_km}= response.base_per_km;
+							const [minSlab, maxSlab]= base_slab.split("-").map(Number);
+							const base_Fare= Number(base_fare);
+							const basePerKm= Number(base_per_km);
+
+							if(distance <= maxSlab){
+								baseFare= base_Fare;
+
+							}
+							else{
+								const extraKm = distance - maxSlab;
+								const extraFare = extraKm * basePerKm;
+								baseFare = base_Fare + extraFare;
+							}
+							// if (response && response.data) {
+							// 	baseFare = response.data;
+							// }
+					   }
+					   
+					   else if(response.success){
+							baseFare = Number(baseFare) + parseInt(response.data);
+							if (sessionStorage["RETURNRIDE"] == "enabled") {
+								// let lastTime = moment(EndDateTime, 'DD-MM-YYYY hh:mm A').format('YYYY-MM-DD HH:mm')
+								// const date1 =startTime
+								// const date2 = EndDateTime
+								// let difference = date2.diff(date1, 'days');
+
+								// if (difference > 1) {
+								// 	let totalKm = distance * difference
+
+								// 	// per_day_charge
+								// 	baseFare = Number(Number(response.otherfare.per_km_charge) * Number(totalKm)) + (Number(difference) * Number(response.otherfare.per_day_charge))
+								// }
+							}
+							else{
+								if (distance > 250) {
+									baseFare = (distance * Number(response.otherfare.per_km_charge))
+								}
+								baseFare = Number(baseFare);
+						}
+					  }
+					  else{
+						document.querySelector(`[container-key="key-${index}"]`).style.display = "none"
+						document.querySelector('cab-listing-item').style.display = "none"
+					  }
+					// if (json.message != "Data not found") {
+					// if (String(baseFare).includes("-")) {
+					// 	hypen_pos = baseFare.split("-")[1]
+					// } else {
+					// 	hypen_pos = baseFare
+					// }
+
+					// let finalAmount = ((parseInt(hypen_pos) + parseInt(MultiplierAmount)))
+					// } else {
+					// console.log("fare not found");
+					// }
+
+					}
+					//LoadFareFromDb end
+					
+					else if (cab.partner_name === "WTI CABS") {
+						if (response.success != "false" && response.code == 200) {
+
+							const fareObj = response["data"]["response"]["car_types"];
+							fareObj.forEach((obj) => {
+								if (obj?.type.toLowerCase() === selectedCabType.trim().toLowerCase()) {
+									WTICAB_Response = obj;
+									let faredetails = obj?.fare_details;
+									baseFare = Number(faredetails.base_fare + faredetails.total_driver_charges
+										+ faredetails.extra_charges.state_tax.amount + faredetails.extra_charges.toll_charges.amount
+										+ faredetails.extra_charges.night_charges.amount + faredetails.extra_charges.parking_charges.amount);
+
+								}
+							})
+						}
+
+					}
+
+					const fareElement = document.getElementById(`baseFare-${index}`);
+					if (fareElement) {
+						document.querySelector(".loader-container").style.display="none"
+						
+						if (baseFare == true || isNaN(baseFare) || baseFare == "Not Available" || baseFare == 0 || baseFare == "undefined" || baseFare == undefined || baseFare == "null" || baseFare == null) {
+							document.querySelector(`[container-key="key-${index}"]`).style.display = "none"
+							document.querySelector('cab-listing-item').style.display = "none"
+							const bookBtn = document.querySelector(`button.book-btn[data-index="${index}"]`);
+							if (bookBtn) {
+								bookBtn.classList.add('disabled');
+								if (fareElement && fareElement.innerHTML === 'loading...') {
+									fareElement.innerHTML = 'N/A';
+								}
+							}
+						} else {
+							if (isNaN(marginAmount) || marginAmount != 0) {
+								let amountWithMargin = Number(baseFare) + Number(marginAmount)
+								fareElement.innerHTML = `₹${amountWithMargin}`;
+							}
+							else {
+								fareElement.innerHTML = `₹${baseFare}`;
+							}
+						}
+					}
+				});
+				// }
+			});
+
+
+			// Add event listeners to "Book Now" buttons after rendering
+			if(localStorage["TravelType"]==="Domestic"){
+				document.querySelectorAll('.book-btn').forEach(button => {
+					button.addEventListener('click', function () {
+						const index = this.getAttribute('data-index');
+						const partnerName = this.getAttribute('data-partner');
+						const cabType = this.getAttribute('data-type');
+						const priceElement = document.getElementById(`baseFare-${index}`);
+						const price = priceElement ? priceElement.innerHTML : "Loading...";
+						const image = this.getAttribute('data-image');
+						const seats = this.getAttribute('data-seats');
+						const rating = this.getAttribute('data-rating');
+						const reviews = this.getAttribute('data-review');
+						const fuelElement = document.getElementById('fuel-type');
+						const fuel = fuelElement ? fuelElement.textContent.trim() : 'N/A';
+						const GozoFareid = GOZOFareid;
+						const quickRideFareid = quickrideFareId;
+						const megaFareId = megaSearchId;
+						const meruFareId = meruSearchId;
+						const blueSmartFareId = bluSmartSearchId;
+						const WtiSearchId = wtiSearchId;
+						const formData= JSON.parse(sessionStorage.getItem('formData'))
+						const calculatedAmount = 0;
+						const bookingDetails = {
+							partnerName,
+							cabType,
+							price,
+							image,
+							seats,
+							rating,
+							reviews,
+							marginAmount,
+							fuel,
+							GozoFareid,
+							quickRideFareid,
+							megaFareId,
+							meruFareId,
+							blueSmartFareId,
+							WtiSearchId,
+							calculatedAmount,
+							WTICAB_Response,
+							WTICAB_Fare_Payload
+						};
+
+						// Update session storage
+						sessionStorage.setItem('cabBookingDetails', JSON.stringify(bookingDetails));
+						Track_LoadAnalytics(
+						"",
+						sessionStorage["AirportRideType"],
+						formData.tripType,
+						"",
+						formData.source,
+						formData.cityCode,
+						formData.terminal,
+						formData.destination,
+						formData.source_lat,
+						formData.source_long,
+						formData.destination_lat,
+						formData.destination_long,
+						formData.pickup_date,
+						formData.pickup_time,
+						localStorage.CouponCode != undefined ? localStorage.CouponCode : "",
+						"",
+						partnerName,
+						formData.distance,
+						price.match(/\d+/)[0],
+						cabType
+						);
+
+						
+						window.location.href = "cab_review.html";
+				});
+			  });
+		    }
+			 if(localStorage["TravelType"]== "International"){
+				cabListContainer.addEventListener("click", function (event) {
+					if (event.target.classList.contains("book-btn")) {
+							const index = event.target.getAttribute("data-index");
+							const cabType = event.target.getAttribute('data-type')
+							const partnerName = event.target.getAttribute("data-partner");
+							const priceElement = document.getElementById(`baseFare-${index}`);
+							const price = priceElement ? priceElement.innerHTML : "Loading...";
+							const image = event.target.getAttribute("data-image");
+							const rating = event.target.getAttribute("data-rating");
+							const reviews = event.target.getAttribute("data-review");
+							const luggageCapacity = event.target.getAttribute("data-luggageCapacity");
+							const passengerCapacity = event.target.getAttribute("data-capacity");
+                            const currency= event.target.getAttribute("data-currency")					
+							const formData = JSON.parse(sessionStorage.getItem("formData"));
+							const bookingDetails = {
+								partnerName,
+								price,
+								image,
+								rating,
+								reviews,
+								luggageCapacity,
+								passengerCapacity,
+								cabType,
+								currency
+							};
+
+							// Update session storage
+							sessionStorage.setItem("cardId", index)
+							sessionStorage.setItem('cabBookingDetails', JSON.stringify(bookingDetails));
+							Track_LoadAnalytics(
+							"",
+							sessionStorage["AirportRideType"],
+							formData.tripType,
+							"",
+							formData.source,
+							formData.cityCode,
+							formData.terminal,
+							formData.destination,
+							formData.source_lat,
+							formData.source_long,
+							formData.destination_lat,
+							formData.destination_long,
+							formData.pickup_date,
+							formData.pickup_time,
+							localStorage.CouponCode != undefined ? localStorage.CouponCode : "",
+							"",
+							partnerName,
+							formData.distance,
+							price,
+							cabType
+							);
+							window.location.href = "cab_review.html";
+					}
+				});
+			}
+		}
+
+	</script>
+
+
+</body></html>

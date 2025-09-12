@@ -37,13 +37,14 @@ public class Selectiondefinitions {
 
     @Given("the user clicks third filter departure as {string}")
     public void the_user_clicks_third_filter_departure_as(String departure) {
-        boolean applied = selectionPage.applyDepartureMorning();
+        // use the new generic time filter and pass the human label from feature
+        boolean applied = selectionPage.applyTimeFilter("departure", departure);
         Assert.assertTrue(applied, "Failed to apply Departure Filter: " + departure);
     }
 
     @Given("the user clicks fourth filter arrival as {string}")
     public void the_user_clicks_fourth_filter_arrival_as(String arrival) {
-        boolean applied = selectionPage.applyArrivalMorning();
+        boolean applied = selectionPage.applyTimeFilter("arrival", arrival);
         Assert.assertTrue(applied, "Failed to apply Arrival Filter: " + arrival);
     }
 

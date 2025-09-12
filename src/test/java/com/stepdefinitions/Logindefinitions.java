@@ -15,11 +15,11 @@ public class Logindefinitions {
 
     WebDriver driver = Hooks.driver;
     ExtentTest extTest = Hooks.extTest;
-    Loginpage loginPage; // declare
+    Loginpage loginPage; 
 
     @Given("the user is on the login page")
     public void the_user_is_on_the_login_page() {
-        // ✅ initialize here for both positive & negative flows
+        
         loginPage = new Loginpage(driver, extTest);
 
         String expRes = "https://www.ixigo.com/";

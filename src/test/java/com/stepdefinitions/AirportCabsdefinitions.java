@@ -100,10 +100,6 @@ public class AirportCabsdefinitions {
         }
     }
 
-    /**
-     * Cleanup: close any child windows opened during the scenario and switch back to parent.
-     * This runs after each scenario.
-     */
     @After
     public void afterScenarioCleanup() {
         try {

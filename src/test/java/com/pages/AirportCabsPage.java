@@ -66,14 +66,12 @@ public class AirportCabsPage {
         WebDriverWait wait = new WebDriverWait(driver, WAIT);
         WebElement fromInput = null;
 
-        // 1) Try presence in main DOM
         try {
             fromInput = wait.until(ExpectedConditions.presenceOfElementLocated(By.id("from-input")));
         } catch (TimeoutException e) {
             Reporter.generateReport(driver, test, Status.INFO, "#from-input not present in main DOM (timeout). Will try wrapper and JS.");
         }
 
-        // 2) If not found or not displayed, try clicking the wrapper to open the control
         if (fromInput == null || !fromInput.isDisplayed()) {
             try {
                 By wrapper = By.xpath("//*[@id='ctn']/div[2]/div[1]");
@@ -91,7 +89,6 @@ public class AirportCabsPage {
             }
         }
 
-        // 3) If still not found or not displayed, attempt JS set on document.getElementById
         if (fromInput == null || !fromInput.isDisplayed()) {
             try {
                 Boolean jsSet = (Boolean) ((JavascriptExecutor) driver).executeScript(
@@ -118,7 +115,6 @@ public class AirportCabsPage {
             }
         }
 
-        // 4) If we have a Selenium element and it's not visible, try forcing styles to visible then use it
         if (fromInput != null) {
             try {
                 if (!fromInput.isDisplayed()) {
@@ -156,7 +152,6 @@ public class AirportCabsPage {
             }
         }
 
-        // 5) NOT FOUND: save screenshot and throw clear error
         takeScreenshot("pickup_input_failure");
         Reporter.generateReport(driver, test, Status.FAIL, "Could not locate or set #from-input (tried presence, wrapper click, and JS).");
         throw new NoSuchElementException("Could not locate or set #from-input. Check target/pickup_input_failure.png for page screenshot.");
