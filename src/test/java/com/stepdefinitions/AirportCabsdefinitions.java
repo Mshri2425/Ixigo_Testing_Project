@@ -12,12 +12,10 @@ import static com.stepdefinitions.Hooks.extTest;
 public class AirportCabsdefinitions {
 
     AirportCabsPage cabsPage = new AirportCabsPage(driver, extTest);
-    // store parent handle so we can return to it in @After
     private String parentWindowHandle;
 
     @Given("user is on the search page")
     public void user_is_on_the_search_page() {
-        // keep consistent with your project: either read URL from config or use ixigo home
         parentWindowHandle = driver.getWindowHandle();
         driver.get("https://www.ixigo.com/");
         Reporter.generateReport(driver, extTest, Status.INFO, "User is on Ixigo search page");
@@ -26,7 +24,6 @@ public class AirportCabsdefinitions {
     @When("user clicks on Airport Cabs option")
     public void user_clicks_on_airport_cabs_option() {
         try {
-            // store parent handle again in case navigation changed it
             parentWindowHandle = driver.getWindowHandle();
             cabsPage.clickAirportCabsAndSwitch();
             Reporter.generateReport(driver, extTest, Status.PASS, "Clicked Airport Cabs and switched to new tab/window");
@@ -83,7 +80,6 @@ public class AirportCabsdefinitions {
     @Then("cab search results should be displayed")
     public void cab_search_results_should_be_displayed() {
         try {
-            // Basic validation: page contains some results container or keywords
             boolean found = driver.getPageSource().toLowerCase().contains("results")
                      || driver.getTitle().toLowerCase().contains("cab")
                      || driver.getCurrentUrl().toLowerCase().contains("search");
@@ -103,14 +99,12 @@ public class AirportCabsdefinitions {
     @After
     public void afterScenarioCleanup() {
         try {
-            // If parentWindowHandle is null, try to set it
             if (parentWindowHandle == null) {
                 try {
                     parentWindowHandle = driver.getWindowHandle();
                 } catch (Exception ignored) {}
             }
 
-            // Close any extra windows/tabs and switch back to parent
             for (String handle : driver.getWindowHandles()) {
                 if (parentWindowHandle != null && !handle.equals(parentWindowHandle)) {
                     try {
@@ -123,7 +117,6 @@ public class AirportCabsdefinitions {
                 }
             }
 
-            // switch back to parent if available
             if (parentWindowHandle != null) {
                 try {
                     driver.switchTo().window(parentWindowHandle);

@@ -5,8 +5,12 @@ import com.pages.AirportCabsPage;
 import com.pages.CabSelectionPage;
 import com.parameters.Reporter;
 import io.cucumber.java.en.*;
-import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.*;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
+
+import java.time.Duration;
 
 public class CabSelectiondefinitions {
 
@@ -14,12 +18,14 @@ public class CabSelectiondefinitions {
     private final com.aventstack.extentreports.ExtentTest extTest;
     private final AirportCabsPage airportCabsPage;
     private final CabSelectionPage cabPage;
+    private final WebDriverWait wait;
 
     public CabSelectiondefinitions() {
         this.driver = Hooks.driver;
         this.extTest = Hooks.extTest;
         this.airportCabsPage = new AirportCabsPage(driver, extTest);
         this.cabPage = new CabSelectionPage(driver, extTest);
+        this.wait = new WebDriverWait(driver, Duration.ofSeconds(15));
     }
 
     @Given("user is on the cab results page")
@@ -48,8 +54,21 @@ public class CabSelectiondefinitions {
     @When("user books {string} cab")
     public void user_books_cab(String provider) {
         Reporter.generateReport(driver, extTest, Status.INFO, "Booking provider: " + provider);
-        boolean clicked = cabPage.bookCabByProvider(provider);
-        Reporter.generateReport(driver, extTest, clicked ? Status.PASS : Status.FAIL, "bookCabByProvider returned: " + clicked);
+
+        boolean clicked = false;
+        try {
+            clicked = cabPage.bookCabByProvider(provider);
+            Reporter.generateReport(driver, extTest, clicked ? Status.PASS : Status.WARNING, "Initial bookCabByProvider returned: " + clicked);
+        } catch (Exception e) {
+            Reporter.generateReport(driver, extTest, Status.FAIL, "Exception in cabPage.bookCabByProvider: " + e.getMessage());
+        }
+
+        if (!clicked) {
+            Reporter.generateReport(driver, extTest, Status.INFO, "Falling back to robust click for provider: " + provider);
+            clicked = clickBookNowByProviderName(provider, 2);
+            Reporter.generateReport(driver, extTest, clicked ? Status.PASS : Status.FAIL, "Fallback click result: " + clicked);
+        }
+
         Assert.assertTrue(clicked, "Failed to click Book Now for: " + provider);
     }
 
@@ -59,5 +78,77 @@ public class CabSelectiondefinitions {
         boolean ok = cabPage.waitForReviewBookingAndClose();
         Reporter.generateReport(driver, extTest, ok ? Status.PASS : Status.FAIL, "Review/booking handled: " + ok);
         Assert.assertTrue(ok, "Review/booking page was not displayed/handled.");
+    }
+
+    private boolean clickBookNowByProviderName(String providerName, int maxAttempts) {
+       
+        String xpathForBookNow = String.format("//div[contains(., '%s')]//button[contains(., 'Book') or contains(., 'Book Now')]", providerName);
+        int attempts = 0;
+
+        while (attempts < maxAttempts) {
+            attempts++;
+            try {
+                closeAnyOverlaysIfPresent();
+                By by = By.xpath(xpathForBookNow);
+                WebElement bookBtn = wait.until(ExpectedConditions.elementToBeClickable(by));
+                ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block: 'center'});", bookBtn);
+                try {
+                    bookBtn.click();
+                } catch (ElementClickInterceptedException | StaleElementReferenceException ex) {
+                    Reporter.generateReport(driver, extTest, Status.WARNING, "Normal click failed (" + ex.getClass().getSimpleName() + "), trying JS click. Attempt: " + attempts);
+                    ((JavascriptExecutor) driver).executeScript("arguments[0].click();", bookBtn);
+                }
+
+                return true;
+            } catch (TimeoutException te) {
+                Reporter.generateReport(driver, extTest, Status.WARNING, String.format("Timed out waiting for Book Now for '%s' (attempt %d).", providerName, attempts));
+            } catch (ElementClickInterceptedException eci) {
+                Reporter.generateReport(driver, extTest, Status.WARNING, "Click intercepted for '" + providerName + "' attempt " + attempts);
+            } catch (StaleElementReferenceException sere) {
+                Reporter.generateReport(driver, extTest, Status.WARNING, "Stale element while clicking '" + providerName + "' attempt " + attempts);
+            } catch (NoSuchElementException nse) {
+                Reporter.generateReport(driver, extTest, Status.FAIL, "Book Now not found for provider: " + providerName);
+                break;
+            } catch (Exception ex) {
+                Reporter.generateReport(driver, extTest, Status.WARNING, "Unexpected error clicking Book Now: " + ex.getMessage());
+            }
+
+            // small pause before retry
+            try {
+                Thread.sleep(500);
+            } catch (InterruptedException ignored) {}
+        }
+
+        return false;
+    }
+
+    private void closeAnyOverlaysIfPresent() {
+        try {
+            By closeBtnSelectors[] = new By[] {
+                    By.xpath("//button[contains(@class,'close') or contains(.,'Close') or contains(.,'×')]"),
+                    By.xpath("//div[contains(@class,'toast')]//button"),
+                    By.xpath("//button[contains(@aria-label,'Close')]")
+            };
+
+            for (By sel : closeBtnSelectors) {
+                if (driver.findElements(sel).size() > 0) {
+                    WebElement close = driver.findElement(sel);
+                    if (close.isDisplayed()) {
+                        try {
+                            close.click();
+                            new WebDriverWait(driver, Duration.ofSeconds(3)).until(ExpectedConditions.invisibilityOf(close));
+                            Reporter.generateReport(driver, extTest, Status.INFO, "Closed overlay using selector: " + sel.toString());
+                        } catch (Exception e) {
+                            try {
+                                ((JavascriptExecutor) driver).executeScript("arguments[0].click();", close);
+                                new WebDriverWait(driver, Duration.ofSeconds(3)).until(ExpectedConditions.invisibilityOf(close));
+                                Reporter.generateReport(driver, extTest, Status.INFO, "Closed overlay via JS using selector: " + sel.toString());
+                            } catch (Exception ignored) {}
+                        }
+                    }
+                }
+            }
+        } catch (Exception ignored) {
+        }
     }
 }

@@ -10,7 +10,7 @@ import io.cucumber.testng.CucumberOptions;
 
 
 @CucumberOptions(
-	features="src/test/resources/Features/cabselection.feature",
+	features="src/test/resources/Features",
 	glue="com.stepdefinitions",
 	plugin= {"pretty","html:reports/cucumber-html-report.html"}
     
@@ -23,7 +23,7 @@ public class TestRunner extends AbstractTestNGCucumberTests {
     public Object[][] scenarios() {
         // Read Excel data once
         String[][] excelData = ExcelReader.readData();
-        Hooks.excelData = excelData;   // ✅ make available globally
+        Hooks.excelData = excelData;   
 
         Object[][] cucumberScenarios = super.scenarios();
 
@@ -32,7 +32,7 @@ public class TestRunner extends AbstractTestNGCucumberTests {
         int index = 0;
 
         for (int i = 0; i < excelData.length; i++) {
-            Hooks.currentrow = i;   // ✅ track row index
+            Hooks.currentrow = i;   
             for (int j = 0; j < cucumberScenarios.length; j++) {
                 finalScenarios[index++] = cucumberScenarios[j];
             }

@@ -28,7 +28,6 @@ public class CabSelectionPage {
         this.extentTest = extentTest;
     }
 
-    
     public boolean userIsOnCabResultsPage() {
         try {
             WebDriverWait wait = new WebDriverWait(driver, WAIT);
@@ -41,7 +40,6 @@ public class CabSelectionPage {
             return false;
         }
     }
-
     
     public boolean selectCabType(String cabType) {
         if (cabType == null) cabType = "";
@@ -63,7 +61,6 @@ public class CabSelectionPage {
                 return true;
             }
 
-            // Generic fallback: try to click based on visible text
             String xpath = "//*[self::label or self::button or self::div or self::a or self::span]"
                     + "[contains(translate(normalize-space(.), 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz'), '"
                     + normalized.toLowerCase() + "')]";
@@ -83,7 +80,6 @@ public class CabSelectionPage {
             return false;
         }
     }
-
    
     public boolean bookCabByProvider(String provider) {
         if (provider == null) provider = "";
@@ -94,7 +90,6 @@ public class CabSelectionPage {
 
             List<WebElement> candidates = driver.findElements(Locators.gozoBookNow);
 
-            // Fallback: XPath by attributes (first item)
             if (candidates == null || candidates.isEmpty()) {
                 candidates = driver.findElements(By.xpath("//div[contains(@class,'cab-listings')]/div[1]//button[@data-partner='GOZO CABS' and @data-type='Hatchback']"));
             }
@@ -130,7 +125,6 @@ public class CabSelectionPage {
         }
     }
 
-    
     public boolean waitForReviewBookingAndClose() {
         try {
             WebDriverWait wait = new WebDriverWait(driver, WAIT);
@@ -141,7 +135,6 @@ public class CabSelectionPage {
             Reporter.generateReport(driver, extentTest, Status.PASS, "Booking/review page detected: " + (el.getText().length() > 100 ? el.getText().substring(0, 100) : el.getText()));
             Base.sleep();
 
-            // Close any newly opened windows and return to main (optional)
             try {
                 String main = driver.getWindowHandle();
                 Set<String> handles = driver.getWindowHandles();

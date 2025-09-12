@@ -18,7 +18,6 @@ public class Reporter {
     private static final String SCREENSHOT_DIR = REPORTS_ROOT + File.separator + "screenshots";
 
     public static void generateReport(WebDriver driver, ExtentTest extTest, Status status, String message) {
-        // Always log text to extent
         if (extTest != null) {
             extTest.log(status, message);
         }
@@ -38,7 +37,6 @@ public class Reporter {
                 }
             }
         } catch (Exception e) {
-            // never throw from reporter — only log
             if (extTest != null) {
                 extTest.warning("Reporter.generateReport encountered an error: " + e.getMessage());
             }
@@ -77,15 +75,11 @@ public class Reporter {
         }
     }
 
-    /**
-     * Checks if driver session is still active (not quit).
-     */
     private static boolean isSessionActive(WebDriver driver) {
         try {
             if (driver instanceof RemoteWebDriver) {
                 return ((RemoteWebDriver) driver).getSessionId() != null;
             }
-            // lightweight probe
             driver.getTitle(); 
             return true;
         } catch (Exception e) {

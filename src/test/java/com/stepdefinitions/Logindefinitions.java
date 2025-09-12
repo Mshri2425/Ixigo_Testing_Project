@@ -28,7 +28,7 @@ public class Logindefinitions {
         System.out.println("✅ The website has been launched successfully");
     }
 
-    // --------- Negative flow ---------
+    // Negative flow
     @When("the user enters invalid mobileno as {string}")
     public void the_user_enters_invalid_mobileno_as(String invalidMobile) {
         loginPage.invalidnumber(invalidMobile);
@@ -44,7 +44,7 @@ public class Logindefinitions {
         loginPage.verifyErrorMessage(expectedMessage);
     }
 
-    // --------- Positive flow ---------
+    //Positive flow
     @When("the user enters mobileno as {string}")
     public void the_user_enters_mobileno_as(String mobileNo) {
         boolean actRes = loginPage.enterMobileNumber(mobileNo);

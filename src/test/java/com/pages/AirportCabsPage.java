@@ -52,7 +52,6 @@ public class AirportCabsPage {
 
     public void selectHomeToAirport() {
         WebDriverWait wait = new WebDriverWait(driver, WAIT);
-        // simple stable locator based on the wrapper you provided
         By homeLabel = By.xpath("//*[@id='ctn']/div[1]/div/label[1]");
         WebElement el = wait.until(ExpectedConditions.elementToBeClickable(homeLabel));
         el.click();
@@ -76,11 +75,9 @@ public class AirportCabsPage {
             try {
                 By wrapper = By.xpath("//*[@id='ctn']/div[2]/div[1]");
                 WebElement wrap = driver.findElement(wrapper);
-                // scroll and click wrapper (click often reveals the input)
                 ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", wrap);
                 try { wrap.click(); } catch (Exception e) { ((JavascriptExecutor) driver).executeScript("arguments[0].click();", wrap); }
                 Thread.sleep(500); // brief pause for UI to update
-                // try to get input again
                 try {
                     fromInput = wait.until(ExpectedConditions.presenceOfElementLocated(By.id("from-input")));
                 } catch (Exception ignored) {}
@@ -137,7 +134,6 @@ public class AirportCabsPage {
                 } catch (Exception jsEx) {}
             }
 
-            // try to pick suggestion
             try {
                 By suggestion = By.xpath("//ul[contains(@class,'auto-from')]//li[contains(normalize-space(.), '" + fromText + "')]");
                 WebElement sug = wait.until(ExpectedConditions.visibilityOfElementLocated(suggestion));

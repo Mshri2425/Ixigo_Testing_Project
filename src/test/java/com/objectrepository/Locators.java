@@ -15,25 +15,20 @@ public class Locators {
     public static By click_from = By.xpath("/html/body/main/div[2]/div[1]/div[3]/div[2]/div[1]/div[1]/div[2]/div/div/div[2]/input");
     public static By to = By.xpath("/html/body/main/div[2]/div[1]/div[3]/div[2]/div[1]/div[2]/div[1]/div");
 
-    // CORRECTED: point to the container (widget) rather than the inner <input>
     public static By click_to = By.xpath("/html/body/main/div[2]/div[1]/div[3]/div[2]/div[1]/div[2]/div[2]/div/div/div[2]/input");
 
     public static By searchButton = By.xpath("//button[normalize-space()='Search' or contains(@class,'search')]");
-    // CORRECTED: make travellers locator generic so it doesn't depend on exact text
     public static By travellersPanel = By.xpath("//div[contains(text(),'Travellers') or contains(@class,'traveller') or contains(@class,'passenger')]");
 
-    // public static By adultsPlusBtn = By.xpath("//button[text()='"+adults+"']");
     public static By childrenPlusBtn = By.xpath("(//button[contains(.,'+')])[2]");
     public static By infantsPlusBtn = By.xpath("(//button[contains(.,'+')])[3]");
     public static By travellersApplyBtn = By.xpath("//button[normalize-space()='Apply' or normalize-space()='Done']");
 
     public static By travelClassDropdown = By.xpath("//div[contains(@class,'cabin') or contains(.,'Class') or contains(@data-testid,'cabin')]");
-    // results container generic
     public static By resultsContainer = By.xpath("//p[text()='Filters']");
     public static By dept = By.xpath("/html/body/main/div[2]/div[1]/div[3]/div[2]/div[2]/div[2]/div/div");
     public static By ret = By.xpath("/html/body/main/div[2]/div[1]/div[3]/div[2]/div[2]/div[1]/div/div/div");
     
-    //selecting date
     public static By monthYearHeader = By.xpath("//div[contains(@class,'DayPicker-Caption')]");
     public static By calendarNextBtn = By.xpath("//span[@aria-label='Next Month']");
     public static By calendarPrevBtn = By.xpath("//span[@aria-label='Previous Month']");
@@ -49,7 +44,6 @@ public class Locators {
     public static By yearLabel = By.xpath("//div[contains(@class,'DayPicker-Caption')]");
 
     
-   //----------------------------------------------------
     
     public static By travelClassOption(String cls) {
         String xpath = String.format(
@@ -85,58 +79,54 @@ public class Locators {
     public static By hatchbackOption = By.xpath("//*[@id='filter-form']/div[1]/label");
     public static By gozoBookNow = By.xpath("//button[@class='submit-btn book-btn' and @data-partner='GOZO CABS' and @data-type='Hatchback']");
 
-   // ------------------- Hotel Booking Locators (add these) -------------------
+    // ------------------- Hotel Booking Locators (add these) -------------------
 
-   // Reliable Hotels tab (uses data-testid on the <li> that contains the Hotels text)
- public static By hotelsTab = By.xpath("//p[text()='Hotels']");
+    public static By hotelsTab = By.xpath("//p[text()='Hotels']");
 
- // Destination input on Hotels form
- public static By hotelDestinationInput = By.xpath("/html/body/main/div[4]/div[2]/div/div[1]/div[1]/div/input");
+    // Destination input on Hotels form
+    public static By hotelDestinationInput = By.xpath("/html/body/main/div[4]/div[2]/div/div[1]/div[1]/div/input");
 
- // Generic suggestion item under destination autocomplete (matches the city name elements)
- public static By hotelSuggestions = By.xpath("//div[contains(@class,'suggestion') or contains(@class,'autocomplete')]//p");
- public static By hotelSuggestionItem = By.xpath("//p[contains(@class,'body-md') and contains(@class,'text-primary')]");
+    public static By hotelSuggestions = By.xpath("//div[contains(@class,'suggestion') or contains(@class,'autocomplete')]//p");
+    public static By hotelSuggestionItem = By.xpath("//p[contains(@class,'body-md') and contains(@class,'text-primary')]");
 
- // Specific first-suggestion shortcut (if you prefer to target Mumbai directly you can keep this)
- public static By hotelFirstSuggestion = By.xpath("(//div[@class='min-w-0 overflow-hidden'])[1]");
+    public static By hotelFirstSuggestion = By.xpath("(//div[@class='min-w-0 overflow-hidden'])[1]");
 
- // Check-in / Check-out visible inputs (data-testid attributes)
- public static By checkinInput = By.xpath("//input[@data-testid='checkin-input']");
- public static By checkoutInput = By.xpath("//input[@data-testid='checkout-input']");
+    // Check-in / Check-out visible inputs 
+    public static By checkinInput = By.xpath("//input[@data-testid='checkin-input']");
+    public static By checkoutInput = By.xpath("//input[@data-testid='checkout-input']");
 
-//Rooms & Guests input (opens the rooms/guests panel)
- public static By roomsGuestsInput = By.xpath("//input[@placeholder='Rooms & Guests']");
+    //Rooms & Guests input 
+    public static By roomsGuestsInput = By.xpath("//input[@placeholder='Rooms & Guests']");
 
-//Hotel Search button (the orange "Search" block)
-public static By hotelSearchButton = By.xpath("//div[contains(@class,'flex') and contains(.,'Search') and (./svg or .//text())]");
+    //Hotel Search button 
+    public static By hotelSearchButton = By.xpath("//div[contains(@class,'flex') and contains(.,'Search') and (./svg or .//text())]");
 
-//First hotel's Book Now button (use as results indicator)
-public static By firstHotelBookNow = By.xpath("(//button[normalize-space()='Book Now' or contains(.,'Book Now')])[1]");
+    //First hotel's Book Now button 
+    public static By firstHotelBookNow = By.xpath("(//button[normalize-space()='Book Now' or contains(.,'Book Now')])[1]");
 
-//------------------- Popup / modal helpers (recommended) -------------------
+    //------------------- Popup / modal helpers-------------------
 
-//Dialog container (useful to detect/popups that block clicks)
-  public static By modalDialog = By.xpath("//div[@role='dialog' or contains(@class,'modal') or contains(@class,'popup')]");
+    //Dialog container 
+    public static By modalDialog = By.xpath("//div[@role='dialog' or contains(@class,'modal') or contains(@class,'popup')]");
 
-//Close button inside modal (tries to match common X / close buttons)
+    //Close button inside modal 
     public static By modalCloseBtn = By.xpath(
-  "//div[@role='dialog' or contains(@class,'modal') or contains(@class,'popup')]//button[" +
-  "contains(translate(@aria-label,'ABCDEFGHIJKLMNOPQRSTUVWXYZ','abcdefghijklmnopqrstuvwxyz'),'close') " +
-  "or contains(translate(@title,'ABCDEFGHIJKLMNOPQRSTUVWXYZ','abcdefghijklmnopqrstuvwxyz'),'close') " +
-  "or contains(@class,'close') or normalize-space(.)='×' or normalize-space(.)='X' or contains(normalize-space(.),'Close')]");
+    "//div[@role='dialog' or contains(@class,'modal') or contains(@class,'popup')]//button[" +
+    "contains(translate(@aria-label,'ABCDEFGHIJKLMNOPQRSTUVWXYZ','abcdefghijklmnopqrstuvwxyz'),'close') " +
+    "or contains(translate(@title,'ABCDEFGHIJKLMNOPQRSTUVWXYZ','abcdefghijklmnopqrstuvwxyz'),'close') " +
+    "or contains(@class,'close') or normalize-space(.)='×' or normalize-space(.)='X' or contains(normalize-space(.),'Close')]");
   
-//Best Price Guarantee modal / overlay
-  public static By bestPricePopup = By.xpath("//div[@data-testid='bpg-home-modal']");
-  public static By bestPricePopupClose = By.xpath("//div[@data-testid='bpg-home-modal-close']");
+    //Best Price Guarantee modal 
+    public static By bestPricePopup = By.xpath("//div[@data-testid='bpg-home-modal']");
+    public static By bestPricePopupClose = By.xpath("//div[@data-testid='bpg-home-modal-close']");
 
-//+ buttons in the popup
-  public static By addRoomButton = By.xpath("(//button[contains(@class,'plus')])[1]");
-  public static By addGuestButton = By.xpath("(//button[contains(@class,'plus')])[2]");
+    //+ buttons in the popup
+    public static By addRoomButton = By.xpath("(//button[contains(@class,'plus')])[1]");
+    public static By addGuestButton = By.xpath("(//button[contains(@class,'plus')])[2]");
 
-//Apply button in popup
-   public static By applyGuestsButton = By.xpath("//button[normalize-space()='Apply' or normalize-space()='Done']");
+    //Apply button in popup
+    public static By applyGuestsButton = By.xpath("//button[normalize-space()='Apply' or normalize-space()='Done']");
 
-   // ------------------- NEW ADDITIONS: Flight Filters -------------------
 
    // Non-Stop filter (wrapper and input)
    public static By nonStopInput = By.xpath("//input[@name='stops' and (normalize-space(@value)='0' or @value='0')]");
@@ -149,14 +139,10 @@ public static By firstHotelBookNow = By.xpath("(//button[normalize-space()='Book
    public static By airlineIndiGoCheckbox = By.xpath(
        "//input[@type='checkbox' and (contains(translate(@value,'ABCDEFGHIJKLMNOPQRSTUVWXYZ','abcdefghijklmnopqrstuvwxyz'),'indigo') or contains(translate(@aria-label,'ABCDEFGHIJKLMNOPQRSTUVWXYZ','abcdefghijklmnopqrstuvwxyz'),'indigo'))]");
 
-// ------------------- Flight Filters (specific) -------------------
+   // ------------------- Flight Filters  -------------------
 
-// Non-Stop filter
-
-// IndiGo filter
-public static By indigoInput = By.xpath("//input[@type='checkbox' and @name='airlines' and @value='6E']");
-public static By indigoWrapper = By.xpath("//input[@type='checkbox' and @name='airlines' and @value='6E']/ancestor::span[1]");
-
-
+   // IndiGo filter
+   public static By indigoInput = By.xpath("//input[@type='checkbox' and @name='airlines' and @value='6E']");
+   public static By indigoWrapper = By.xpath("//input[@type='checkbox' and @name='airlines' and @value='6E']/ancestor::span[1]");
 
 }

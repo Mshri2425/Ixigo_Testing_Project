@@ -23,21 +23,8 @@ public class Selectiondefinitions {
         System.out.println("The page has been loaded");
     }
 
-    @Given("the user wants to apply the first filter recommended_filter as {string}")
-    public void the_user_wants_to_apply_the_first_filter_recommended_filter_as(String filter) {
-        boolean applied = selectionPage.applyFilter(filter);
-        Assert.assertTrue(applied, "Failed to apply Recommended Filter: " + filter);
-    }
-
-    @Given("the the second filter is selected Airlines as {string}")
-    public void the_the_second_filter_is_selected_airlines_as(String airline) {
-        boolean applied = selectionPage.applyAirlineFilter(airline);
-        Assert.assertTrue(applied, "Failed to apply Airline Filter: " + airline);
-    }
-
     @Given("the user clicks third filter departure as {string}")
     public void the_user_clicks_third_filter_departure_as(String departure) {
-        // use the new generic time filter and pass the human label from feature
         boolean applied = selectionPage.applyTimeFilter("departure", departure);
         Assert.assertTrue(applied, "Failed to apply Departure Filter: " + departure);
     }

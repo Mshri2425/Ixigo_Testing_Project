@@ -1,14 +1,10 @@
 package com.pages;
 
 import java.time.Duration;
-import java.util.List;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
 import com.aventstack.extentreports.Status;
@@ -16,43 +12,52 @@ import com.aventstack.extentreports.ExtentTest;
 import com.objectrepository.Locators;
 import com.parameters.Reporter;
 
-/**
- * SelectionPage - robust interactions on search results page (filters, selecting flights, autocomplete handling).
- *
- * Requires Searchingpage to initialize driver, wait, extTest.
- */
+
 public class SelectionPage extends Searchingpage {
 
     public SelectionPage(WebDriver driver, ExtentTest extTest) {
         super(driver, extTest);
     }
 
-    /**
-     * Load the flights search results page using Searchingpage helpers.
-     * If Searchingpage already has an enterLandingPlace method you use in search,
-     * keep it for initial search. For additional typing on results page, use enterPlaceOnResultsPage.
-     */
     public boolean loadPage() {
-        openFlightsTab();
-        handlePopupIfExists();
-        selectRoundTrip();
-        enterBoardingPlace("chennai"); // from Searchingpage
-        enterLandingPlace("Mumbai");   // from Searchingpage (initial search)
-        setTravellersAndClass(1, 0, 1, "Economy");
-        clickSearch();
-
         try {
-            wait.until(ExpectedConditions.visibilityOfElementLocated(Locators.resultsContainer));
-            closePriceLockPopupIfPresent();
-            Reporter.generateReport(driver, extTest, Status.PASS, "The page has been landed");
-            return true;
+            openFlightsTab();
+            handlePopupIfExists();
+            selectRoundTrip();
+            enterBoardingPlace("chennai");
+            enterLandingPlaceSelectExact("Mumbai");
+            setTravellersAndClass(1, 0, 1, "Economy");
+            clickSearch();
+            try {
+                wait.until(ExpectedConditions.visibilityOfElementLocated(Locators.resultsContainer));
+                closePriceLockPopupIfPresent();
+                Reporter.generateReport(driver, extTest, Status.PASS, "The page has been landed (initial attempt)");
+                return true;
+            } catch (Exception firstWaitEx) {
+                Reporter.generateReport(driver, extTest, Status.WARNING,
+                        "Results not visible after initial search attempt. Will retry selection + search. Reason: " + firstWaitEx.getMessage());
+                try {
+                    enterLandingPlaceReliable("Mumbai");
+                    try {
+                        ((JavascriptExecutor) driver).executeScript("window.scrollTo(0,0);");
+                    } catch (Exception ignore) {}
+                    clickSearch();
+                    wait.until(ExpectedConditions.visibilityOfElementLocated(Locators.resultsContainer));
+                    closePriceLockPopupIfPresent();
+                    Reporter.generateReport(driver, extTest, Status.PASS, "The page has been landed (retry attempt)");
+                    return true;
+                } catch (Exception secondEx) {
+                    Reporter.generateReport(driver, extTest, Status.FAIL,
+                            "Retry attempt failed to load results: " + secondEx.getMessage());
+                    return false;
+                }
+            }
         } catch (Exception e) {
-            Reporter.generateReport(driver, extTest, Status.FAIL, "Failed to load page: " + e.getMessage());
+            Reporter.generateReport(driver, extTest, Status.FAIL, "Failed to load page (exception): " + e.getMessage());
             return false;
         }
     }
-
-    // -------------------- Popup handling --------------------
+    // Popup handling
     public void closePriceLockPopupIfPresent() {
         By[] popupLocators = new By[] {
                 By.xpath("//*[@id='portal-root']/div/div[2]/div/button"),
@@ -64,10 +69,10 @@ public class SelectionPage extends Searchingpage {
 
         for (By pLoc : popupLocators) {
             try {
-                WebElement btn = new org.openqa.selenium.support.ui.WebDriverWait(driver, Duration.ofSeconds(3))
+                org.openqa.selenium.WebElement btn = new org.openqa.selenium.support.ui.WebDriverWait(driver, Duration.ofSeconds(3))
                         .until(ExpectedConditions.presenceOfElementLocated(pLoc));
                 try {
-                    WebElement clickable = new org.openqa.selenium.support.ui.WebDriverWait(driver, Duration.ofSeconds(2))
+                    org.openqa.selenium.WebElement clickable = new org.openqa.selenium.support.ui.WebDriverWait(driver, Duration.ofSeconds(2))
                             .until(ExpectedConditions.elementToBeClickable(pLoc));
                     clickable.click();
                     Reporter.generateReport(driver, extTest, Status.INFO, "Popup dismissed using locator: " + pLoc);
@@ -92,13 +97,13 @@ public class SelectionPage extends Searchingpage {
                     }
                 }
             } catch (Exception e) {
-                // locator not present -> try next
+                // locator not present then try next
             }
         }
         Reporter.generateReport(driver, extTest, Status.INFO, "Price-lock popup not found or could not be dismissed");
     }
 
-    // -------------------- Generic filters --------------------
+    // Generic filters 
     public boolean applyFilter(String filterName) {
         if (filterName == null) filterName = "";
         String normalized = filterName.trim();
@@ -106,13 +111,13 @@ public class SelectionPage extends Searchingpage {
 
         String lower = normalized.toLowerCase();
         String xpath = "//*[self::label or self::button or self::span or self::div or self::a]" +
-                "[contains(translate(normalize-space(.), 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz'), \"" + lower + "\")]";
+                "[contains(translate(normalize-space(.), 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz'), '" + lower + "')]";
         By filterLocator = By.xpath(xpath);
 
         int attempts = 2;
         for (int i = 0; i < attempts; i++) {
             try {
-                WebElement el = wait.until(ExpectedConditions.presenceOfElementLocated(filterLocator));
+                org.openqa.selenium.WebElement el = wait.until(ExpectedConditions.presenceOfElementLocated(filterLocator));
                 try { ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block:'center'});", el); } catch (Exception ignore) {}
                 try {
                     wait.until(ExpectedConditions.elementToBeClickable(filterLocator)).click();
@@ -132,17 +137,17 @@ public class SelectionPage extends Searchingpage {
             }
         }
 
-        // fallback: type into any filter-search box if available (common patterns)
+        // fallback: type into any filter-search box if available
         try {
-            List<WebElement> boxes = driver.findElements(By.xpath(
+            java.util.List<org.openqa.selenium.WebElement> boxes = driver.findElements(By.xpath(
                     "//input[contains(@placeholder,'Search') or contains(@aria-label,'search') or contains(@data-testid,'filter-search')]"));
             if (!boxes.isEmpty()) {
-                WebElement box = boxes.get(0);
+                org.openqa.selenium.WebElement box = boxes.get(0);
                 box.clear();
                 box.sendKeys(normalized);
                 Thread.sleep(300);
-                box.sendKeys(Keys.ENTER);
-                WebElement match = wait.until(ExpectedConditions.elementToBeClickable(filterLocator));
+                box.sendKeys(org.openqa.selenium.Keys.ENTER);
+                org.openqa.selenium.WebElement match = wait.until(ExpectedConditions.elementToBeClickable(filterLocator));
                 try {
                     match.click();
                     Reporter.generateReport(driver, extTest, Status.PASS, "Filter selected after typing: " + normalized);
@@ -163,7 +168,7 @@ public class SelectionPage extends Searchingpage {
         return applyFilter(airlineName);
     }
 
-    // -------------------- Time-of-day filter helpers --------------------
+    // Time-of-day helpers
     public boolean applyTimeFilter(String type, String humanLabel) {
         closePriceLockPopupIfPresent();
         try {
@@ -174,7 +179,7 @@ public class SelectionPage extends Searchingpage {
             // try inputs first (exact value match)
             By checkbox = By.xpath("//input[@name='" + nameAttr + "' and normalize-space(@value)='" + mappedValue + "']");
             try {
-                WebElement el = wait.until(ExpectedConditions.presenceOfElementLocated(checkbox));
+                org.openqa.selenium.WebElement el = wait.until(ExpectedConditions.presenceOfElementLocated(checkbox));
                 ((JavascriptExecutor) driver).executeScript("arguments[0].click();", el);
                 Reporter.generateReport(driver, extTest, Status.PASS,
                         String.format("%s filter applied: %s -> %s", type, humanLabel, mappedValue));
@@ -184,7 +189,7 @@ public class SelectionPage extends Searchingpage {
                 String textToMatch = humanLabel.trim();
                 By textLocator = By.xpath("//*[self::label or self::button or self::span or self::div or self::a]" +
                         "[contains(normalize-space(.), \"" + textToMatch + "\")]");
-                WebElement el = wait.until(ExpectedConditions.presenceOfElementLocated(textLocator));
+                org.openqa.selenium.WebElement el = wait.until(ExpectedConditions.presenceOfElementLocated(textLocator));
                 ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block:'center'});", el);
                 try {
                     wait.until(ExpectedConditions.elementToBeClickable(textLocator)).click();
@@ -229,114 +234,7 @@ public class SelectionPage extends Searchingpage {
         return applyTimeFilter("arrival", "06AM-12PM");
     }
 
-    // -------------------- Autocomplete helper for results page --------------------
-    /**
-     * Enter a city/place in autocomplete on results page and select suggestion.
-     *
-     * Usage example:
-     * By[] candidates = new By[] { By.cssSelector("input[placeholder='To']"), By.xpath("//label[contains(.,'To')]/following::input[1]") };
-     * enterPlaceOnResultsPage(candidates, "Mumbai");
-     */
-    public boolean enterPlaceOnResultsPage(By[] inputLocatorCandidates, String city) {
-        try {
-            closePriceLockPopupIfPresent();
-
-            WebElement input = null;
-            for (By cand : inputLocatorCandidates) {
-                try {
-                    input = wait.until(ExpectedConditions.elementToBeClickable(cand));
-                    if (!"input".equalsIgnoreCase(input.getTagName())) {
-                        input = null;
-                        continue;
-                    }
-                    break;
-                } catch (Exception ignore) {}
-            }
-
-            if (input == null) {
-                Reporter.generateReport(driver, extTest, Status.FAIL, "Landing input not found on results page");
-                return false;
-            }
-
-            // ensure overlay not blocking
-            try {
-                By overlay = By.cssSelector("div.modal-backdrop, div.portal-overlay");
-                wait.withTimeout(Duration.ofSeconds(1)).until(ExpectedConditions.invisibilityOfElementLocated(overlay));
-            } catch (Exception ignore) {}
-
-            // Focus and type via Actions
-            try { ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block:'center'});", input); } catch (Exception ignore) {}
-            try { input.click(); } catch (Exception ex) { ((JavascriptExecutor) driver).executeScript("arguments[0].click();", input); }
-            try { input.clear(); } catch (Exception ignore) {}
-
-            Actions actions = new Actions(driver);
-            actions.moveToElement(input).click().pause(Duration.ofMillis(150)).sendKeys(city).perform();
-
-            // Wait for suggestions
-            By[] suggestionContainers = new By[] {
-                    By.cssSelector("ul[role='listbox']"),
-                    By.cssSelector("div[role='listbox']"),
-                    By.xpath("//div[contains(@class,'suggestion') or contains(@class,'PopularAirports')]"),
-                    By.cssSelector("div.PopularAirports, div.autocomplete-list, div.suggestions")
-            };
-
-            WebElement suggestions = null;
-            for (By sc : suggestionContainers) {
-                try {
-                    suggestions = wait.until(ExpectedConditions.visibilityOfElementLocated(sc));
-                    break;
-                } catch (Exception ignored) {}
-            }
-
-            String txt = city.trim().toLowerCase();
-            if (suggestions != null) {
-                try {
-                    WebElement match = suggestions.findElement(By.xpath(
-                            ".//*[contains(translate(normalize-space(.),'ABCDEFGHIJKLMNOPQRSTUVWXYZ','abcdefghijklmnopqrstuvwxyz'), '" + txt + "')]"));
-                    ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block:'center'});", match);
-                    try { wait.until(ExpectedConditions.elementToBeClickable(match)).click(); }
-                    catch (Exception clickEx) { ((JavascriptExecutor) driver).executeScript("arguments[0].click();", match); }
-                    Reporter.generateReport(driver, extTest, Status.PASS, "Selected suggestion: " + city);
-                    return true;
-                } catch (Exception ignore) {}
-            }
-
-            // global match fallback
-            try {
-                WebElement global = wait.until(ExpectedConditions.elementToBeClickable(
-                        By.xpath("//*[contains(translate(normalize-space(.),'ABCDEFGHIJKLMNOPQRSTUVWXYZ','abcdefghijklmnopqrstuvwxyz'), '" + txt + "')]")));
-                ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block:'center'});", global);
-                try { global.click(); } catch (Exception ex) { ((JavascriptExecutor) driver).executeScript("arguments[0].click();", global); }
-                Reporter.generateReport(driver, extTest, Status.PASS, "Selected place via global match: " + city);
-                return true;
-            } catch (Exception ignored) {}
-
-            // JS fallback: set value + dispatch events
-            try {
-                String js = "arguments[0].value = arguments[1];" +
-                        "arguments[0].dispatchEvent(new Event('input', {bubbles:true}));" +
-                        "arguments[0].dispatchEvent(new Event('change', {bubbles:true}));";
-                ((JavascriptExecutor) driver).executeScript(js, input, city);
-                Thread.sleep(300);
-
-                WebElement afterJs = wait.until(ExpectedConditions.elementToBeClickable(
-                        By.xpath("//*[contains(translate(normalize-space(.),'ABCDEFGHIJKLMNOPQRSTUVWXYZ','abcdefghijklmnopqrstuvwxyz'), '" + txt + "')]")));
-                ((JavascriptExecutor) driver).executeScript("arguments[0].click();", afterJs);
-                Reporter.generateReport(driver, extTest, Status.PASS, "Selected after JS set: " + city);
-                return true;
-            } catch (Exception jsEx) {
-                // ignore and fail below
-            }
-
-            Reporter.generateReport(driver, extTest, Status.FAIL, "Failed to type/select landing place on results page: " + city);
-            return false;
-        } catch (Exception e) {
-            Reporter.generateReport(driver, extTest, Status.FAIL, "Exception while selecting landing place: " + e.getMessage());
-            return false;
-        }
-    }
-
-    // -------------------- Select first flight --------------------
+    // Select first flight
     public boolean selectFirstAvailableFlight() {
         closePriceLockPopupIfPresent();
 
@@ -349,7 +247,7 @@ public class SelectionPage extends Searchingpage {
 
         for (By cand : candidateXPaths) {
             try {
-                WebElement el = wait.until(ExpectedConditions.elementToBeClickable(cand));
+                org.openqa.selenium.WebElement el = wait.until(ExpectedConditions.elementToBeClickable(cand));
                 try { ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block:'center'});", el); } catch (Exception ignore) {}
                 try { el.click(); } catch (Exception clickEx) { ((JavascriptExecutor) driver).executeScript("arguments[0].click();", el); }
                 Reporter.generateReport(driver, extTest, Status.PASS, "Clicked first available flight using " + cand);
@@ -360,8 +258,8 @@ public class SelectionPage extends Searchingpage {
         }
 
         try {
-            WebElement results = wait.until(ExpectedConditions.visibilityOfElementLocated(Locators.resultsContainer));
-            WebElement btn = results.findElement(By.xpath(".//button[.//text() or @aria-label][1]"));
+            org.openqa.selenium.WebElement results = wait.until(ExpectedConditions.visibilityOfElementLocated(Locators.resultsContainer));
+            org.openqa.selenium.WebElement btn = results.findElement(By.xpath(".//button[.//text() or @aria-label][1]"));
             wait.until(ExpectedConditions.elementToBeClickable(btn));
             try { btn.click(); } catch (Exception clickEx) { ((JavascriptExecutor) driver).executeScript("arguments[0].click();", btn); }
             Reporter.generateReport(driver, extTest, Status.PASS, "Clicked first available flight (fallback)");
