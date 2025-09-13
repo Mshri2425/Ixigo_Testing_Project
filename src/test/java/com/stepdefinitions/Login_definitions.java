@@ -1,5 +1,6 @@
 package com.stepdefinitions;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
 import com.aventstack.extentreports.ExtentTest;
@@ -30,16 +31,24 @@ public class Login_definitions {
     @When("the user enters invalid mobileno as {string}")
     public void the_user_enters_invalid_mobileno_as(String invalidMobile) {
         loginPage.invalidnumber(invalidMobile);
+        String actualTyped = driver.findElement(By.xpath("//input[@placeholder='Enter Mobile Number']")).getAttribute("value");
+        Assert.assertTrue(actualTyped.contains(invalidMobile),
+                "Mobile input does not contain the entered invalid number. Expected to contain: " + invalidMobile + " but was: " + actualTyped);
     }
 
     @When("the user clicks the login button")
     public void the_user_clicks_the_login_button() {
-        loginPage.clickContinueForMobile();
+        boolean clicked = loginPage.clickContinueForMobile();
+        Assert.assertTrue(clicked, "Failed to click Continue for mobile");
     }
 
     @Then("the system should display {string}")
     public void the_system_should_display(String expectedMessage) {
         loginPage.verifyErrorMessage(expectedMessage);
+        String errorXpath = "//div[contains(text(),'Please enter a valid')]";
+        boolean isDisplayed = !driver.findElements(By.xpath(errorXpath)).isEmpty()
+                && driver.findElement(By.xpath(errorXpath)).isDisplayed();
+        Assert.assertTrue(isDisplayed, "Expected error message not displayed on invalid mobile input. Expected (contains): 'Please enter a valid...'");
     }
 
     //Positive flow

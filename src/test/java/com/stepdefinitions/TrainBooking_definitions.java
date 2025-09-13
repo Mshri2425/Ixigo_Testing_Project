@@ -29,12 +29,14 @@ public class TrainBooking_definitions {
         search.selectDepartureDate(date);
         search.clickSearch();
         booking.waitForResults();
+        Assert.assertTrue(booking.isResultsVisible(), "Train search results were not visible after performing search.");
     }
 
     @When("the user selects the first available train")
     public void user_selects_first_train() {
         initPages();
-        // Currently selecting class 2A will implicitly select the train row
+        // Ensure results are present before selecting
+        Assert.assertTrue(booking.isResultsVisible(), "Cannot select first train because results are not visible.");
     }
 
     @When("the user chooses class {string}")
@@ -42,6 +44,7 @@ public class TrainBooking_definitions {
         initPages();
         if (className.equalsIgnoreCase("2A") || className.equalsIgnoreCase("2AC")) {
             booking.selectClass2A();
+            Assert.assertTrue(booking.isResultsVisible(), "Results disappeared after selecting class " + className);
         } else {
             throw new UnsupportedOperationException("Class selection for " + className + " not implemented.");
         }
@@ -50,13 +53,15 @@ public class TrainBooking_definitions {
     @When("the user clicks on Show Availability")
     public void user_clicks_show_availability() {
         initPages();
-        // No-op for now, because selectClass2A() opens availability directly
+        Assert.assertTrue(booking.isResultsVisible(), "Results not visible before Show Availability step.");
     }
 
     @When("the user clicks on Book for the first available option")
     public void user_clicks_book_first_available() {
         initPages();
         booking.clickFirstBookButton();
+        boolean popup = booking.isLoginPopupVisible();
+        Assert.assertTrue(popup, "Expected login popup to appear after clicking Book (checked immediately).");
     }
 
     @Then("the login popup should be displayed")
