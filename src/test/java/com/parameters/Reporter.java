@@ -7,7 +7,6 @@ import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebDriverException;
 import org.openqa.selenium.remote.RemoteWebDriver;
-
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.*;
@@ -21,7 +20,6 @@ public class Reporter {
         if (extTest != null) {
             extTest.log(status, message);
         }
-
         // Capture screenshot only for FAIL
         try {
             if (status == Status.FAIL && driver != null && isSessionActive(driver)) {

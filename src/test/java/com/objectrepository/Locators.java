@@ -14,21 +14,16 @@ public class Locators {
     public static By from = By.xpath("/html/body/main/div[2]/div[1]/div[3]/div[2]/div[1]/div[1]/div[1]/div");
     public static By click_from = By.xpath("/html/body/main/div[2]/div[1]/div[3]/div[2]/div[1]/div[1]/div[2]/div/div/div[2]/input");
     public static By to = By.xpath("/html/body/main/div[2]/div[1]/div[3]/div[2]/div[1]/div[2]/div[1]/div");
-
     public static By click_to = By.xpath("/html/body/main/div[2]/div[1]/div[3]/div[2]/div[1]/div[2]/div[2]/div/div/div[2]/input");
-
     public static By searchButton = By.xpath("//button[normalize-space()='Search' or contains(@class,'search')]");
     public static By travellersPanel = By.xpath("//div[contains(text(),'Travellers') or contains(@class,'traveller') or contains(@class,'passenger')]");
-
     public static By childrenPlusBtn = By.xpath("(//button[contains(.,'+')])[2]");
     public static By infantsPlusBtn = By.xpath("(//button[contains(.,'+')])[3]");
     public static By travellersApplyBtn = By.xpath("//button[normalize-space()='Apply' or normalize-space()='Done']");
-
     public static By travelClassDropdown = By.xpath("//div[contains(@class,'cabin') or contains(.,'Class') or contains(@data-testid,'cabin')]");
     public static By resultsContainer = By.xpath("//p[text()='Filters']");
     public static By dept = By.xpath("/html/body/main/div[2]/div[1]/div[3]/div[2]/div[2]/div[2]/div/div");
     public static By ret = By.xpath("/html/body/main/div[2]/div[1]/div[3]/div[2]/div[2]/div[1]/div/div/div");
-    
     public static By monthYearHeader = By.xpath("//div[contains(@class,'DayPicker-Caption')]");
     public static By calendarNextBtn = By.xpath("//span[@aria-label='Next Month']");
     public static By calendarPrevBtn = By.xpath("//span[@aria-label='Previous Month']");
@@ -42,9 +37,6 @@ public class Locators {
         return By.xpath("//div[contains(@class,'DayPicker-Day') and not(contains(@class,'disabled'))]//p[text()='" + day + "']/following-sibling::p");
     }
     public static By yearLabel = By.xpath("//div[contains(@class,'DayPicker-Caption')]");
-
-    
-    
     public static By travelClassOption(String cls) {
         String xpath = String.format(
             "//li[normalize-space(.)='%s'] | " +
@@ -55,8 +47,7 @@ public class Locators {
         return By.xpath(xpath);
     }
 
-    // ------------------- Airport Cabs Locators -------------------
-
+    //Airport Cabs Locators 
     public static By airportCabs = By.xpath("//a[@data-testid='submenu-item' and .//p[normalize-space()='Airport Cabs']]");
     public static By homeToAirport = By.xpath("//label[contains(.,'Home To Airport') or contains(.,'Home To Aiport')]");
     public static By fromLocationInput = By.xpath("//input[@id='from-input' and @placeholder='Pick Up Location']");
@@ -74,21 +65,17 @@ public class Locators {
     public static final String logoutElement = "(//a[normalize-space()='Logout'] | //a[normalize-space()='Log out'] | //button[normalize-space()='Logout'] | //button[normalize-space()='Log out'] | //a[normalize-space()='Sign out'])[1]";
     public static final String loginButton = "//button[normalize-space()='Log in/Sign up']";
 
-    // ------------------- Cab Selection Locators -------------------
-
+    //Cab Selection Locators
     public static By hatchbackOption = By.xpath("//*[@id='filter-form']/div[1]/label");
     public static By gozoBookNow = By.xpath("//button[@class='submit-btn book-btn' and @data-partner='GOZO CABS' and @data-type='Hatchback']");
 
-    // ------------------- Hotel Booking Locators (add these) -------------------
-
+    //Hotel Booking Locators
     public static By hotelsTab = By.xpath("//p[text()='Hotels']");
 
     // Destination input on Hotels form
     public static By hotelDestinationInput = By.xpath("/html/body/main/div[4]/div[2]/div/div[1]/div[1]/div/input");
-
     public static By hotelSuggestions = By.xpath("//div[contains(@class,'suggestion') or contains(@class,'autocomplete')]//p");
     public static By hotelSuggestionItem = By.xpath("//p[contains(@class,'body-md') and contains(@class,'text-primary')]");
-
     public static By hotelFirstSuggestion = By.xpath("(//div[@class='min-w-0 overflow-hidden'])[1]");
 
     // Check-in / Check-out visible inputs 
@@ -103,8 +90,6 @@ public class Locators {
 
     //First hotel's Book Now button 
     public static By firstHotelBookNow = By.xpath("(//button[normalize-space()='Book Now' or contains(.,'Book Now')])[1]");
-
-    //------------------- Popup / modal helpers-------------------
 
     //Dialog container 
     public static By modalDialog = By.xpath("//div[@role='dialog' or contains(@class,'modal') or contains(@class,'popup')]");
@@ -139,8 +124,7 @@ public class Locators {
    public static By airlineIndiGoCheckbox = By.xpath(
        "//input[@type='checkbox' and (contains(translate(@value,'ABCDEFGHIJKLMNOPQRSTUVWXYZ','abcdefghijklmnopqrstuvwxyz'),'indigo') or contains(translate(@aria-label,'ABCDEFGHIJKLMNOPQRSTUVWXYZ','abcdefghijklmnopqrstuvwxyz'),'indigo'))]");
 
-   // ------------------- Flight Filters  -------------------
-
+   //Flight Filters
    // IndiGo filter
    public static By indigoInput = By.xpath("//input[@type='checkbox' and @name='airlines' and @value='6E']");
    public static By indigoWrapper = By.xpath("//input[@type='checkbox' and @name='airlines' and @value='6E']/ancestor::span[1]");

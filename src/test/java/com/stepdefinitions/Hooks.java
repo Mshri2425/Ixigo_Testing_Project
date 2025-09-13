@@ -1,13 +1,11 @@
 package com.stepdefinitions;
 
 import org.openqa.selenium.WebDriver;
-
 import com.aventstack.extentreports.ExtentReports;
 import com.aventstack.extentreports.ExtentTest;
 import com.aventstack.extentreports.reporter.ExtentSparkReporter;
-import com.parameters.ExcelReader;
+import com.parameters.Excel_Reader;
 import com.setup.Base;
-
 import io.cucumber.java.After;
 import io.cucumber.java.AfterAll;
 import io.cucumber.java.Before;
@@ -27,7 +25,7 @@ public class Hooks extends Base {
 		@BeforeAll
 		public static void setup() {
 			try {
-				excelData = ExcelReader.readData();
+				excelData = Excel_Reader.readData();
 			} catch (Exception e) {
 				e.printStackTrace();
 				throw new RuntimeException("Failed to read data from Excel file.", e);

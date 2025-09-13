@@ -3,20 +3,18 @@ package com.setup;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
-
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
-
-import com.parameters.PropertyReader;
+import com.parameters.Property_Reader;
 
 public class Base {
 
     public static WebDriver driver;
 
     public void launchBrowser() {
-        Properties prop = PropertyReader.readProperties();
+        Properties prop = Property_Reader.readProperties();
         String browser = prop.getProperty("Browser");
         String url = prop.getProperty("URL");
 

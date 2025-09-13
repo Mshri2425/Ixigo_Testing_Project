@@ -1,28 +1,24 @@
 package com.runner;
 
 import org.testng.annotations.DataProvider;
-
-import com.parameters.ExcelReader;
+import com.parameters.Excel_Reader;
 import com.stepdefinitions.Hooks;
-
 import io.cucumber.testng.AbstractTestNGCucumberTests;
 import io.cucumber.testng.CucumberOptions;
 
-
 @CucumberOptions(
-	features="src/test/resources/Features",
+	features="src/test/resources/Feature",
 	glue="com.stepdefinitions",
 	plugin= {"pretty","html:reports/cucumber-html-report.html"}
     
 )
 public class TestRunner extends AbstractTestNGCucumberTests {
 	
-
 	@Override
     @DataProvider(parallel = false)
     public Object[][] scenarios() {
         // Read Excel data once
-        String[][] excelData = ExcelReader.readData();
+        String[][] excelData = Excel_Reader.readData();
         Hooks.excelData = excelData;   
 
         Object[][] cucumberScenarios = super.scenarios();
